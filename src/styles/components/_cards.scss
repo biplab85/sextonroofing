@@ -106,7 +106,15 @@
     &-fill {
       height: 100%;
       border-radius: $radius-full;
-      transition: width 0.7s ease-out;
+      transition: width 0.4s ease;
+
+      .service-card[data-active] & {
+        transition: width 3.2s linear;
+      }
+
+      .service-card:hover & {
+        transition: width 0.7s ease-out;
+      }
     }
   }
 
@@ -191,6 +199,11 @@
   &__detail { opacity: 1; }
   &__window { opacity: 1; }
   &__knob-center { opacity: 1; }
+
+  // Smooth transitions for returning to default state on deactivation
+  &__shine, &__sun, &__ray, &__handle, &__knob-center {
+    transition: opacity 0.5s ease;
+  }
 }
 
 // Animate SVG draw-in on hover or auto-active card
@@ -211,9 +224,9 @@
     }
   }
 
-  &__shine { animation: svcPulse 3s ease-in-out infinite; }
-  &__ray { animation: svcRaySpin 8s linear infinite; }
-  &__sun { animation: svcPulse 4s ease-in-out infinite; }
+  &__shine { animation: svcPulse 2.5s ease-in-out 1 forwards 0.6s; }
+  &__ray { animation: svcPulse 2s ease-in-out 1 forwards 0.4s; }
+  &__sun { animation: svcPulse 2.5s ease-in-out 1 forwards 0.3s; }
 
   &__panel {
     opacity: 0;
@@ -240,7 +253,7 @@
     animation: svcDrawShort 1s ease forwards 0.4s;
   }
 
-  &__handle { animation: svcPulse 3s ease-in-out infinite 1s; }
+  &__handle { animation: svcPulse 2s ease-in-out 1 forwards 0.8s; }
 
   &__threshold {
     stroke-dashoffset: 50;
@@ -262,7 +275,7 @@
     animation: svcFadeIn 0.5s ease forwards 0.5s;
   }
 
-  &__knob-center { animation: svcPulse 2.5s ease-in-out infinite; }
+  &__knob-center { animation: svcPulse 2s ease-in-out 1 forwards 0.5s; }
 }
 
 @keyframes svcDraw {

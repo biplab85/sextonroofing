@@ -202,8 +202,9 @@ export default function Testimonials() {
                       <div
                         className="review-card__border-top"
                         style={{
-                          border: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                          borderBottom: 'none',
+                          borderTop: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
+                          borderLeft: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
+                          borderRight: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
                         }}
                       />
                     </div>
