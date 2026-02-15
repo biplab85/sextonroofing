@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { services } from '@/data/content';
 import { IconArrowRight } from '@/components/ui/Icons';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 /* ── SVG icons per service ── */
 const serviceIcons = {
@@ -108,6 +109,17 @@ export default function ServiceCards() {
   const glowRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeCard, setActiveCard] = useState(-1);
+
+  /* Sequential auto-cycle: Roofing → Siding → Windows → Doors → repeat */
+  useEffect(() => {
+    if (!isVisible || hoveredCard !== null) return;
+    setActiveCard((prev) => (prev < 0 ? 0 : prev));
+    const interval = setInterval(() => {
+      setActiveCard((prev) => (prev + 1) % services.cards.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isVisible, hoveredCard]);
 
   /* Intersection observer */
   useEffect(() => {
@@ -262,40 +274,18 @@ export default function ServiceCards() {
 
       {/* ===== Content ===== */}
       <div className="container services-section__content">
-        <div className="services-section__header">
-          <div className={`services-section__badge ${isVisible ? 'is-visible' : ''}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="badge-cmd-icon">
-              <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
-            </svg>
-            <span>{services.sectionTitle}</span>
-            <span className="badge-dot" aria-hidden="true" />
-          </div>
-
-          <h2 className={`services-section__title ${isVisible ? 'is-visible' : ''}`}>
-            <svg className="services-section__curl" width="22" height="40" viewBox="0 0 22 40" fill="none" aria-hidden="true">
-              <path d="M18 4C12 4 9 8 9 13C9 17 13 18 13 22C13 26 8 26 3 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              <path d="M18 36C12 36 9 32 9 27C9 23 13 22 13 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-            <span>What We Offer</span>
-            <svg className="services-section__curl services-section__curl--flip" width="22" height="40" viewBox="0 0 22 40" fill="none" aria-hidden="true">
-              <path d="M18 4C12 4 9 8 9 13C9 17 13 18 13 22C13 26 8 26 3 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              <path d="M18 36C12 36 9 32 9 27C9 23 13 22 13 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-          </h2>
-
-          <p className={`services-section__subtitle ${isVisible ? 'is-visible' : ''}`}>
-            {services.sectionSubtitle}
-          </p>
-        </div>
+        <SectionHeader badge={services.sectionTitle} title="What We Offer" subtitle={services.sectionSubtitle} variant="dark" />
 
         <div className={`services-section__grid ${isVisible ? 'is-visible' : ''}`}>
           {services.cards.map((card, idx) => {
             const gradient = cardGradients[idx % cardGradients.length];
-            const hovered = hoveredCard === idx;
+            const isAutoActive = hoveredCard === null && activeCard === idx;
+            const isActive = isAutoActive || hoveredCard === idx;
             return (
               <div
                 key={card.title}
                 className="service-card"
+                data-active={isAutoActive || undefined}
                 style={{
                   '--card-glow': gradient.glow,
                   transitionDelay: `${300 + idx * 100}ms`,
@@ -325,7 +315,7 @@ export default function ServiceCards() {
                   className="service-card__accent-top"
                   style={{
                     background: `linear-gradient(90deg, transparent 10%, rgba(${gradient.glow}, 0.6) 50%, transparent 90%)`,
-                    opacity: hovered ? 1 : 0,
+                    opacity: isActive ? 1 : 0,
                   }}
                 />
 
@@ -334,7 +324,7 @@ export default function ServiceCards() {
                   <div
                     className="service-card__bar-fill"
                     style={{
-                      width: hovered ? '100%' : '0%',
+                      width: isActive ? '100%' : '0%',
                       background: `linear-gradient(90deg, ${gradient.accent}, rgba(${gradient.glow}, 0.3))`,
                     }}
                   />

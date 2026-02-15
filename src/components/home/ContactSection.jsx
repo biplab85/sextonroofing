@@ -1,17 +1,76 @@
 'use client';
 
-import { useState } from 'react';
-import { hero, contact } from '@/data/content';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { contact } from '@/data/content';
 import { IconCheckCircle } from '@/components/ui/Icons';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import SectionHeader from '@/components/ui/SectionHeader';
+
+const MAX_W = 48;   // final width %
+const MAX_H = 40;   // final height %
 
 export default function ContactSection() {
   const ref = useScrollReveal();
   const [formData, setFormData] = useState({});
+  const [selectedServices, setSelectedServices] = useState([]);
   const [status, setStatus] = useState('idle');
+  const sectionRef = useRef(null);
+  const arrowRef = useRef(null);
+  const rafRef = useRef(null);
+  const doneRef = useRef(false);
+
+  const updateArrow = useCallback(() => {
+    const section = sectionRef.current;
+    const arrow = arrowRef.current;
+    if (!section || !arrow || doneRef.current) return;
+
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    // Progress: 0 when section top hits viewport bottom, 1 when section top reaches 40% from top
+    const start = vh;          // section top at bottom of screen
+    const end = vh * 0.35;     // section top at 35% from top
+    const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+
+    const w = progress * MAX_W;
+    const h = progress * MAX_H;
+
+    arrow.style.width = w + '%';
+    arrow.style.height = h + '%';
+
+    // Mark done when fully grown — stop listening
+    if (progress >= 1) {
+      doneRef.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (doneRef.current) return;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateArrow);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    // Run once on mount in case section is already in view
+    onScroll();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [updateArrow]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleCheckbox = (value) => {
+    setSelectedServices((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -25,56 +84,95 @@ export default function ContactSection() {
     }
   };
 
-  const fields = hero.form.fields;
-
   return (
-    <section className="contact-v2" id="contact">
+    <section className="contact-v2" id="contact" ref={sectionRef}>
+      {/* ── Premium Guided Arrow ── */}
+      <svg ref={arrowRef} className="contact-v2__guide-arrow" viewBox="0 0 900 600" fill="none" aria-hidden="true" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="guideArrowGrad" x1="0" y1="0" x2="900" y2="600" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.03)" />
+            <stop offset="30%" stopColor="rgba(255,255,255,0.12)" />
+            <stop offset="70%" stopColor="rgba(81,60,96,0.25)" />
+            <stop offset="100%" stopColor="rgba(81,60,96,0.4)" />
+          </linearGradient>
+          <linearGradient id="guideArrowGlow" x1="0" y1="0" x2="900" y2="600" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="50%" stopColor="rgba(81,60,96,0.08)" />
+            <stop offset="100%" stopColor="rgba(81,60,96,0.15)" />
+          </linearGradient>
+          <filter id="arrowSoftGlow">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Wide glow trail behind the main stroke */}
+        <path
+          className="contact-v2__guide-glow"
+          d="M-20 30 C80 25, 140 50, 200 100 C280 165, 300 200, 380 260 C460 320, 560 360, 660 400 C740 430, 800 460, 860 500"
+          stroke="url(#guideArrowGlow)"
+          strokeWidth="60"
+          strokeLinecap="round"
+          fill="none"
+        />
+
+        {/* Main flowing curve — long elegant tail */}
+        <path
+          className="contact-v2__guide-path"
+          d="M-20 30 C80 25, 140 50, 200 100 C280 165, 300 200, 380 260 C460 320, 560 360, 660 400 C740 430, 800 460, 860 500"
+          stroke="url(#guideArrowGrad)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          filter="url(#arrowSoftGlow)"
+        />
+
+        {/* Secondary parallel accent line */}
+        <path
+          className="contact-v2__guide-accent"
+          d="M-10 50 C90 48, 160 72, 220 120 C295 182, 320 220, 395 278 C470 336, 570 374, 665 412 C740 440, 795 466, 850 506"
+          stroke="rgba(81,60,96,0.12)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="8 12"
+          fill="none"
+        />
+
+        {/* Arrowhead — elegant triangular pointer */}
+        <path
+          className="contact-v2__guide-head"
+          d="M838 484 L868 510 L842 518"
+          stroke="rgba(81,60,96,0.5)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+
+        {/* Decorative sparkle dots along the path */}
+        <circle className="contact-v2__guide-dot contact-v2__guide-dot--1" cx="200" cy="100" r="2" fill="rgba(255,255,255,0.35)" />
+        <circle className="contact-v2__guide-dot contact-v2__guide-dot--2" cx="380" cy="260" r="2.5" fill="rgba(81,60,96,0.3)" />
+        <circle className="contact-v2__guide-dot contact-v2__guide-dot--3" cx="560" cy="365" r="2" fill="rgba(81,60,96,0.35)" />
+        <circle className="contact-v2__guide-dot contact-v2__guide-dot--4" cx="740" cy="430" r="3" fill="rgba(81,60,96,0.25)" />
+      </svg>
+
       {/* ── Dark Header ── */}
       <div className="contact-v2__header">
         <div className="contact-v2__header-inner">
-          {/* Badge */}
-          <div className="contact-v2__badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="badge-cmd-icon">
-              <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
-            </svg>
-            <span>Communicate</span>
-            <span className="badge-dot" aria-hidden="true" />
-          </div>
-
-          {/* Title with decorative curls */}
-          <h2 className="contact-v2__title">
-            <svg className="contact-v2__curl" width="22" height="40" viewBox="0 0 22 40" fill="none" aria-hidden="true">
-              <path d="M18 4C12 4 9 8 9 13C9 17 13 18 13 22C13 26 8 26 3 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              <path d="M18 36C12 36 9 32 9 27C9 23 13 22 13 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-            <span>Contact us anytime</span>
-            <svg className="contact-v2__curl contact-v2__curl--flip" width="22" height="40" viewBox="0 0 22 40" fill="none" aria-hidden="true">
-              <path d="M18 4C12 4 9 8 9 13C9 17 13 18 13 22C13 26 8 26 3 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-              <path d="M18 36C12 36 9 32 9 27C9 23 13 22 13 22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-          </h2>
-
-          <p className="contact-v2__desc">
-            We are here to help out anytime. So, please fill up the form and send
-            to us. We will get back to you within 2 business days. Thanks for
-            your patience and support.
-          </p>
-        </div>
-
-        {/* Decorative curved arrow */}
-        <svg className="contact-v2__arrow" width="120" height="140" viewBox="0 0 120 140" fill="none" aria-hidden="true">
-          <path
-            d="M20 8C40 3 75 2 85 18C98 38 65 52 55 72C45 92 60 110 80 125"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeDasharray="4 4"
+          <SectionHeader
+            badge="Contact"
+            title={contact.sectionTitle}
+            subtitle={contact.sectionSubtitle}
+            variant="dark"
           />
-          <path d="M74 120L82 128L88 118" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+
+        </div>
       </div>
 
-      {/* ── White Form Card (overlaps dark header) ── */}
+      {/* ── White Form Card ── */}
       <div className="contact-v2__card-wrap">
         <div className="contact-v2__card reveal" ref={ref}>
           {status === 'success' ? (
@@ -87,54 +185,74 @@ export default function ContactSection() {
             </div>
           ) : (
             <form className="contact-v2__form" onSubmit={handleSubmit} noValidate>
-              {/* 2x2 Grid of fields */}
+              {/* Text fields — 2-column grid */}
               <div className="contact-v2__row">
-                {fields.map((field) => (
-                  <div key={field.name} className="contact-v2__field">
-                    <label className="contact-v2__label">
+                {contact.form.fields.map((field) => (
+                  <div key={field.name} className={`contact-v2__field${formData[field.name] ? ' contact-v2__field--filled' : ''}`}>
+                    <input
+                      id={`cf-${field.name}`}
+                      type={field.type}
+                      name={field.name}
+                      required={field.required}
+                      className="contact-v2__input"
+                      onChange={handleChange}
+                      placeholder=" "
+                    />
+                    <label className="contact-v2__label" htmlFor={`cf-${field.name}`}>
                       {field.label}
                       {field.required && <span className="contact-v2__req"> *</span>}
                     </label>
-
-                    {field.type === 'select' ? (
-                      <select
-                        name={field.name}
-                        className="contact-v2__select"
-                        required={field.required}
-                        onChange={handleChange}
-                        defaultValue=""
-                      >
-                        {field.options.map((opt) => (
-                          <option key={opt.value} value={opt.value} disabled={opt.value === ''}>
-                            {opt.label}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      <input
-                        type={field.type}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        required={field.required}
-                        className="contact-v2__input"
-                        onChange={handleChange}
-                      />
-                    )}
                   </div>
                 ))}
+              </div>
+
+              {/* Service checkboxes */}
+              <div className="contact-v2__checkbox-group">
+                <span className="contact-v2__group-label">
+                  Service Needed <span className="contact-v2__req">*</span>
+                </span>
+                <div className="contact-v2__checkboxes">
+                  {contact.form.services.map((svc) => (
+                    <label key={svc.value} className="contact-v2__checkbox">
+                      <input
+                        type="checkbox"
+                        name="service"
+                        value={svc.value}
+                        checked={selectedServices.includes(svc.value)}
+                        onChange={() => handleCheckbox(svc.value)}
+                      />
+                      <span className="contact-v2__checkmark" />
+                      <span className="contact-v2__checkbox-label">{svc.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Message textarea */}
+              <div className={`contact-v2__field contact-v2__field--full${formData.message ? ' contact-v2__field--filled' : ''}`}>
+                <textarea
+                  id="cf-message"
+                  name="message"
+                  className="contact-v2__textarea"
+                  onChange={handleChange}
+                  rows={4}
+                  placeholder=" "
+                />
+                <label className="contact-v2__label" htmlFor="cf-message">
+                  Message
+                </label>
               </div>
 
               {status === 'error' && (
                 <p className="contact-v2__error">{contact.form.errorMessage}</p>
               )}
 
-              {/* Submit */}
               <button
                 type="submit"
                 className="contact-v2__submit"
                 disabled={status === 'submitting'}
               >
-                <span>{status === 'submitting' ? 'Sending...' : 'Get started'}</span>
+                <span>{status === 'submitting' ? 'Sending...' : contact.form.submitLabel}</span>
                 <span className="contact-v2__submit-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M7 17L17 7" />

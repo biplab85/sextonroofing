@@ -168,7 +168,10 @@ input, select, textarea {
   background: $color-bg-alt;
 }
 
-.section-header {
+// ============================================================
+// Unified Section Header (.sh) — reviews-section style
+// ============================================================
+.sh {
   text-align: center;
   margin-bottom: $space-10;
 
@@ -176,15 +179,116 @@ input, select, textarea {
     margin-bottom: $space-12;
   }
 
+  @include responsive(lg) {
+    margin-bottom: $space-16;
+  }
+
+  &__badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 8px $space-5;
+    border-radius: $radius-full;
+    font-size: $text-sm;
+    font-weight: 600;
+    margin-bottom: $space-6;
+
+    svg { opacity: 0.7; }
+  }
+
   &__title {
-    margin-bottom: $space-3;
+    font-family: $font-heading;
+    font-size: $text-3xl;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: $space-5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+
+    @include responsive(md) {
+      font-size: $text-4xl;
+      gap: $space-3;
+    }
+
+    @include responsive(lg) {
+      font-size: $text-5xl;
+    }
+  }
+
+  &__ornament {
+    flex-shrink: 0;
+    width: 36px;
+    height: auto;
+    transition: opacity 0.4s ease;
+
+    @include responsive(md) {
+      width: 48px;
+    }
+
+    @include responsive(lg) {
+      width: 56px;
+    }
+
+    &--flip {
+      transform: scaleX(-1);
+    }
   }
 
   &__subtitle {
-    color: $color-text-secondary;
-    font-size: $text-lg;
+    font-size: $text-base;
+    line-height: 1.7;
     max-width: 600px;
     margin: 0 auto;
+
+    @include responsive(lg) {
+      font-size: $text-lg;
+    }
+  }
+
+  // ── Dark variant (for dark-bg sections) ──
+  &--dark {
+    .sh__badge {
+      background: linear-gradient(135deg, rgba(58, 107, 85, 0.15), rgba(126, 104, 145, 0.1));
+      border: 1px solid rgba(58, 107, 85, 0.25);
+      color: #7E9B8A;
+    }
+
+    .sh__title {
+      color: $color-white;
+    }
+
+    .sh__ornament {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .sh__subtitle {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  // ── Light variant (for white / alt-bg sections) ──
+  &--light {
+    .sh__badge {
+      background: linear-gradient(135deg, rgba($color-primary, 0.08), rgba($color-accent, 0.06));
+      border: 1px solid rgba($color-primary, 0.15);
+      color: $color-primary-light;
+    }
+
+    .sh__title {
+      color: $color-primary;
+    }
+
+    .sh__ornament {
+      color: $color-primary-light;
+      opacity: 0.45;
+    }
+
+    .sh__subtitle {
+      color: $color-text-secondary;
+    }
   }
 }
 

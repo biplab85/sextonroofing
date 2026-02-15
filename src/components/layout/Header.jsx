@@ -4,13 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { navigation, business } from '@/data/content';
 import { useScrollHeader } from '@/hooks/useScrollHeader';
+import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy';
 import { useDrawer } from '@/context/DrawerContext';
-import { IconPhone, IconChevronDown } from '@/components/ui/Icons';
+import { IconPhone, IconChevronDown, IconArrowRight } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
 import MobileNav from './MobileNav';
 
 export default function Header() {
   const scrolled = useScrollHeader(60);
+  const activeHash = useScrollSpy(80);
   const { openDrawer } = useDrawer();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -19,7 +21,7 @@ export default function Header() {
       <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner">
           {/* Logo */}
-          <Link href="/" className="header__logo">
+          <Link href="#hero" className="header__logo" onClick={scrollToSection}>
             <img
               src={navigation.logo.src}
               alt={navigation.logo.alt}
@@ -29,27 +31,41 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="header__nav" aria-label="Main navigation">
-            {navigation.links.map((link) =>
-              link.children ? (
+            {navigation.links.map((link) => {
+              const isActive = link.href === activeHash;
+
+              return link.children ? (
                 <div key={link.label} className="header__dropdown">
-                  <Link href={link.href} className="header__link" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <Link
+                    href={link.href}
+                    className={`header__link ${isActive ? 'header__link--active' : ''}`}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    onClick={scrollToSection}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
                     {link.label}
                     <IconChevronDown size={14} />
                   </Link>
                   <div className="header__dropdown-menu">
                     {link.children.map((child) => (
-                      <Link key={child.href} href={child.href}>
+                      <Link key={child.href} href={child.href} onClick={scrollToSection}>
                         {child.label}
                       </Link>
                     ))}
                   </div>
                 </div>
               ) : (
-                <Link key={link.href} href={link.href} className="header__link">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`header__link ${isActive ? 'header__link--active' : ''}`}
+                  onClick={scrollToSection}
+                  aria-current={isActive ? 'true' : undefined}
+                >
                   {link.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </nav>
 
           {/* Right Actions */}
@@ -66,6 +82,7 @@ export default function Header() {
               onClick={openDrawer}
             >
               {navigation.cta.label}
+              <IconArrowRight size={16} />
             </Button>
 
             {/* Mobile Hamburger */}
@@ -83,7 +100,11 @@ export default function Header() {
         </div>
       </header>
 
-      <MobileNav isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileNav
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        activeHash={activeHash}
+      />
     </>
   );
 }

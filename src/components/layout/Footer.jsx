@@ -97,7 +97,7 @@ export default function Footer() {
             />
             <div className="footer__social">
               <a
-                href={business.social.facebook || '#'}
+                href={business.social.facebook}
                 aria-label="Facebook"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -106,7 +106,7 @@ export default function Footer() {
                 <IconFacebook size={16} />
               </a>
               <a
-                href={business.social.instagram || 'https://www.instagram.com/sextonroofing/'}
+                href={business.social.instagram}
                 aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -115,7 +115,7 @@ export default function Footer() {
                 <IconInstagram size={16} />
               </a>
               <a
-                href="#"
+                href={business.social.linkedin}
                 aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -210,8 +210,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer__bottom">
           <div className="footer__bottom-left">
-            <Link href="/terms">Terms &amp; Conditions</Link>
-            <Link href="/privacy">Our Policy</Link>
+            <Link href="#">Terms &amp; Conditions</Link>
+            <Link href="#">Our Policy</Link>
           </div>
           <p className="footer__bottom-right">
             {footerContent.legal.copyright}

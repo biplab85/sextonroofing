@@ -31,9 +31,10 @@ export const business = {
     sunday: "Sun: Closed",
   },
   social: {
-    facebook: "", // Add URL when available
-    instagram: "", // Add URL when available
-    bbbProfile: "", // Add BBB profile URL when available
+    facebook: "https://www.facebook.com/profile.php?id=100050410609504#",
+    instagram: "https://www.instagram.com/sextonroofing",
+    linkedin: "https://www.linkedin.com/company/sexton-roofing-siding",
+    bbbProfile: "",
   },
 };
 
@@ -46,25 +47,25 @@ export const navigation = {
     src: "/images/logo.webp",
   },
   links: [
-    { label: "Home", href: "/" },
+    { label: "Home", href: "#hero" },
     {
       label: "Services",
-      href: "/services",
+      href: "#services",
       children: [
-        { label: "Roofing", href: "/services/roofing" },
-        { label: "Siding", href: "/services/siding" },
-        { label: "Windows", href: "/services/windows" },
-        { label: "Doors", href: "/services/doors" },
+        { label: "Roofing", href: "#services" },
+        { label: "Siding", href: "#services" },
+        { label: "Windows", href: "#services" },
+        { label: "Doors", href: "#services" },
       ],
     },
-    { label: "About", href: "/about" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Reviews", href: "/reviews" },
-    { label: "Contact", href: "/contact" },
+    { label: "About", href: "#about" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "Reviews", href: "#testimonials" },
+    { label: "Contact", href: "#contact" },
   ],
   cta: {
     label: "Free Estimate",
-    href: "/contact",
+    href: "#contact",
   },
 };
 
@@ -158,7 +159,7 @@ export const services = {
       description:
         "Residential and commercial roof repair, replacement, and new installations. Trusted craftsmanship backed by 40+ years of experience.",
       image: { src: "/images/services/roofing.jpg", alt: "Professional roofing installation by Sexton Roofing" },
-      href: "/services/roofing",
+      href: "#contact",
       linkLabel: "Learn More",
     },
     {
@@ -166,7 +167,7 @@ export const services = {
       description:
         "Professional vinyl siding installation and repair across Western MA. Enhance your home's curb appeal and energy efficiency.",
       image: { src: "/images/services/siding.jpg", alt: "Vinyl siding installation by Sexton Roofing" },
-      href: "/services/siding",
+      href: "#contact",
       linkLabel: "Learn More",
     },
     {
@@ -174,7 +175,7 @@ export const services = {
       description:
         "Energy-efficient window replacements including double-hung, casement, and picture windows. Improve comfort, light, and value.",
       image: { src: "/images/services/windows.jpg", alt: "Window replacement by Sexton Roofing" },
-      href: "/services/windows",
+      href: "#contact",
       linkLabel: "Learn More",
     },
     {
@@ -182,7 +183,7 @@ export const services = {
       description:
         "Custom entry door installations in fiberglass and steel. Boost security, insulation, and curb appeal with a single upgrade.",
       image: { src: "/images/services/doors.jpg", alt: "Entry door installation by Sexton Roofing" },
-      href: "/services/doors",
+      href: "#contact",
       linkLabel: "Learn More",
     },
   ],
@@ -422,40 +423,72 @@ export const serviceArea = {
 };
 
 // ----------------------------------------------------------
+// Highlighted Projects
+// ----------------------------------------------------------
+export const highlightedProjects = {
+  sectionTitle: "Highlighted Projects",
+  sectionSubtitle:
+    "Featured transformations from across Western Massachusetts.",
+  projects: [
+    {
+      title: "Complete Roof Replacement",
+      location: "Northampton, MA",
+      category: "Roofing",
+      description:
+        "Full architectural shingle roof replacement on a colonial-style home. Removed aging 25-year-old asphalt shingles and installed premium GAF Timberline HDZ shingles with enhanced weather protection.",
+      image: { src: "/images/hightlight-project/01.webp", alt: "Complete roof replacement project in Northampton, MA" },
+      stats: { duration: "3 Days", scope: "2,800 sq ft" },
+    },
+    {
+      title: "Vinyl Siding & Trim Overhaul",
+      location: "Amherst, MA",
+      category: "Siding",
+      description:
+        "Whole-house vinyl siding installation with custom trim and soffit work. Transformed a dated exterior into a modern, weather-resistant facade with improved insulation.",
+      image: { src: "/images/hightlight-project/02.webp", alt: "Vinyl siding installation project in Amherst, MA" },
+      stats: { duration: "5 Days", scope: "Full Exterior" },
+    },
+    {
+      title: "Window & Door Upgrade",
+      location: "Holyoke, MA",
+      category: "Windows & Doors",
+      description:
+        "Replaced 12 double-hung windows and a front entry door with energy-efficient models. Dramatically improved curb appeal, natural light, and home energy performance.",
+      image: { src: "/images/hightlight-project/03.webp", alt: "Window and door upgrade project in Holyoke, MA" },
+      stats: { duration: "4 Days", scope: "13 Units" },
+    },
+  ],
+};
+
+// ----------------------------------------------------------
 // Contact Section (Full Form — Bottom of Page)
 // ----------------------------------------------------------
 export const contact = {
-  sectionTitle: "Get in Touch",
+  sectionTitle: "Request Roofing Service",
   sectionSubtitle:
-    "Request a free, no-obligation estimate or ask us anything about your project.",
+    "Fill out the form below to request a free, no-obligation estimate. Our team will contact you within one business day.",
   form: {
     fields: [
-      { name: "name", label: "Full Name", type: "text" as const, placeholder: "John Smith", required: true },
-      { name: "email", label: "Email Address", type: "email" as const, placeholder: "john@example.com", required: true },
-      { name: "phone", label: "Phone Number", type: "tel" as const, placeholder: "(413) 555-0000", required: true },
-      {
-        name: "service",
-        label: "Service Needed",
-        type: "select" as const,
-        required: true,
-        options: [
-          { value: "", label: "Select a Service" },
-          { value: "roofing", label: "Roofing" },
-          { value: "siding", label: "Siding" },
-          { value: "windows", label: "Windows" },
-          { value: "doors", label: "Doors" },
-          { value: "multiple", label: "Multiple Services" },
-          { value: "other", label: "Other" },
-        ],
-      },
-      { name: "zip", label: "Zip Code", type: "text" as const, placeholder: "01040", required: true },
-      { name: "message", label: "Message", type: "textarea" as const, placeholder: "Tell us about your project...", required: false },
+      { name: "name", label: "Name", type: "text" as const, placeholder: "John Smith", required: true },
+      { name: "company", label: "Company", type: "text" as const, placeholder: "Company Name", required: false },
+      { name: "phone", label: "Phone", type: "tel" as const, placeholder: "(413) 555-0000", required: true },
+      { name: "email", label: "Email", type: "email" as const, placeholder: "john@example.com", required: true },
+      { name: "address", label: "Address", type: "text" as const, placeholder: "123 Main St", required: true },
+      { name: "city", label: "City", type: "text" as const, placeholder: "Holyoke", required: true },
+      { name: "state", label: "State", type: "text" as const, placeholder: "MA", required: true },
     ],
-    submitLabel: "Send My Request",
-    successMessage: "Thank you! We'll get back to you within 24 hours.",
+    services: [
+      { value: "roofing", label: "Roofing" },
+      { value: "siding", label: "Siding" },
+      { value: "windows", label: "Windows" },
+      { value: "entry-doors", label: "Entry Doors" },
+      { value: "gutters", label: "Gutters" },
+    ],
+    submitLabel: "Request Service",
+    successMessage: "Thank you for contacting the Sexton Roofing & Siding team! We'll get back to you within one business day.",
     errorMessage: "Something went wrong. Please call us at 413-534-1234.",
   },
-  responseTime: "We respond to all inquiries within 24 hours.",
+  responseTime: "We respond to all inquiries within one business day.",
 };
 
 // ----------------------------------------------------------
@@ -506,18 +539,18 @@ export const footer = {
   description:
     "Family-owned and operated since 1985. Sexton Roofing & Siding is Western Massachusetts' trusted contractor for roofing, siding, windows, and doors.",
   quickLinks: [
-    { label: "Home", href: "/" },
-    { label: "Roofing", href: "/services/roofing" },
-    { label: "Siding", href: "/services/siding" },
-    { label: "Windows", href: "/services/windows" },
-    { label: "Doors", href: "/services/doors" },
-    { label: "About Us", href: "/about" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Reviews", href: "/reviews" },
-    { label: "Contact", href: "/contact" },
+    { label: "Home", href: "#hero" },
+    { label: "Roofing", href: "#services" },
+    { label: "Siding", href: "#services" },
+    { label: "Windows", href: "#services" },
+    { label: "Doors", href: "#services" },
+    { label: "About Us", href: "#about" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "Reviews", href: "#testimonials" },
+    { label: "Contact", href: "#contact" },
   ],
   legal: {
-    privacy: { label: "Privacy Policy", href: "/privacy" },
+    privacy: { label: "Privacy Policy", href: "#" },
     copyright: `\u00A9 ${new Date().getFullYear()} Sexton Roofing & Siding. All rights reserved.`,
   },
 };

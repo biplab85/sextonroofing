@@ -150,88 +150,6 @@
     z-index: 1;
   }
 
-  &__header {
-    text-align: center;
-    margin-bottom: $space-10;
-
-    @include responsive(md) {
-      margin-bottom: $space-12;
-    }
-  }
-
-  &__badge {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: $space-2;
-    padding: 8px $space-5;
-    border-radius: $radius-full;
-    background: linear-gradient(135deg, rgba(58, 107, 85, 0.15), rgba(126, 104, 145, 0.1));
-    border: 1px solid rgba(58, 107, 85, 0.25);
-    color: #7E9B8A;
-    font-size: $text-sm;
-    font-weight: 600;
-    margin-bottom: $space-6;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    svg { opacity: 0.7; }
-  }
-
-  &__title {
-    font-family: $font-heading;
-    font-size: $text-3xl;
-    font-weight: 500;
-    font-style: italic;
-    color: $color-white;
-    display: inline-flex;
-    align-items: center;
-    gap: $space-3;
-    margin-bottom: $space-3;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @include responsive(md) {
-      font-size: $text-4xl;
-    }
-  }
-
-  &__curl {
-    color: rgba(255, 255, 255, 0.35);
-    flex-shrink: 0;
-
-    &--flip {
-      transform: scaleX(-1);
-    }
-  }
-
-  &__subtitle {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: $text-lg;
-    max-width: 600px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -260,8 +178,82 @@
   66%      { transform: translate(35px, -35px) scale(0.94); }
 }
 
-// Why Choose Us
+// ============================================================
+// Why Choose Us — Premium dark gradient section
+// ============================================================
 .why-section {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+
+  @include responsive(md) {
+    padding: $space-16 0;
+  }
+
+  @include responsive(lg) {
+    padding: $space-20 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #0c1a14 0%,
+      #112b20 25%,
+      #163124 50%,
+      #112a1e 75%,
+      #0c1a14 100%
+    );
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      width: 600px;
+      height: 600px;
+      top: -15%;
+      right: -10%;
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.16) 0%, transparent 70%);
+      filter: blur(100px);
+      animation: whyOrbDrift 22s ease-in-out infinite;
+    }
+
+    &--b {
+      width: 500px;
+      height: 500px;
+      bottom: -20%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.10) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: whyOrbDrift 28s ease-in-out infinite reverse;
+    }
+  }
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  // Content above bg
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -273,16 +265,602 @@
 
     @include responsive(lg) {
       grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  // Card overrides for dark background
+  .feature-card {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
     }
   }
 }
 
-// How It Works
-.how-section {
+@keyframes whyOrbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(25px, -18px) scale(1.06); }
+  66%      { transform: translate(-18px, 12px) scale(0.94); }
+}
+
+// ============================================================
+// Gallery Section — Premium dark gradient section
+// ============================================================
+.gallery-section {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+
+  @include responsive(md) {
+    padding: $space-16 0;
+  }
+
+  @include responsive(lg) {
+    padding: $space-20 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #0d1117 0%,
+      #121a24 25%,
+      #161f2c 50%,
+      #121a24 75%,
+      #0d1117 100%
+    );
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      width: 550px;
+      height: 550px;
+      top: -18%;
+      left: 20%;
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.12) 0%, transparent 70%);
+      filter: blur(100px);
+      animation: galleryOrbDrift 24s ease-in-out infinite;
+    }
+
+    &--b {
+      width: 500px;
+      height: 500px;
+      bottom: -15%;
+      right: 15%;
+      background: radial-gradient(circle, rgba(42, 123, 168, 0.10) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: galleryOrbDrift 30s ease-in-out infinite reverse;
+    }
+  }
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  // Content above bg
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Gallery item overrides for dark background
+  .gallery-preview__item {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    &:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  .gallery-preview__cta .btn--secondary {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #fff;
+    }
+  }
+}
+
+@keyframes galleryOrbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -22px) scale(1.05); }
+  66%      { transform: translate(-22px, 18px) scale(0.95); }
+}
+
+// ============================================================
+// Coverage Section (Service Area) — Premium dark gradient section
+// ============================================================
+.coverage-section {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+
+  @include responsive(md) {
+    padding: $space-16 0;
+  }
+
+  @include responsive(lg) {
+    padding: $space-20 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #0c1419 0%,
+      #101e27 25%,
+      #142832 50%,
+      #101e27 75%,
+      #0c1419 100%
+    );
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      width: 550px;
+      height: 550px;
+      top: -10%;
+      right: -5%;
+      background: radial-gradient(circle, rgba(42, 123, 168, 0.12) 0%, transparent 70%);
+      filter: blur(100px);
+      animation: coverageOrbDrift 26s ease-in-out infinite;
+    }
+
+    &--b {
+      width: 450px;
+      height: 450px;
+      bottom: -15%;
+      left: 10%;
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.10) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: coverageOrbDrift 22s ease-in-out infinite reverse;
+    }
+  }
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  // Content above bg
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Service area element overrides for dark background
+  .service-area__county-name--dark {
+    color: $color-white;
+
+    &::before {
+      background: rgba(126, 104, 145, 0.7);
+    }
+  }
+
+  .service-area__county-town--dark {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      background: rgba(58, 107, 85, 0.2);
+      color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(58, 107, 85, 0.4);
+    }
+  }
+}
+
+@keyframes coverageOrbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(20px, -15px) scale(1.04); }
+  66%      { transform: translate(-15px, 20px) scale(0.96); }
+}
+
+// ============================================================
+// Highlighted Projects — Premium dark gradient section
+// ============================================================
+.highlight-section {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+
+  @include responsive(md) {
+    padding: $space-16 0;
+  }
+
+  @include responsive(lg) {
+    padding: $space-20 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #0e1218 0%,
+      #141c28 25%,
+      #1a2436 50%,
+      #141c28 75%,
+      #0e1218 100%
+    );
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      width: 600px;
+      height: 600px;
+      top: -20%;
+      left: -10%;
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.14) 0%, transparent 70%);
+      filter: blur(100px);
+      animation: hlOrbDrift 24s ease-in-out infinite;
+    }
+
+    &--b {
+      width: 500px;
+      height: 500px;
+      bottom: -18%;
+      right: -8%;
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.12) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: hlOrbDrift 28s ease-in-out infinite reverse;
+    }
+
+    &--c {
+      width: 350px;
+      height: 350px;
+      top: 50%;
+      left: calc(50% - 175px);
+      background: radial-gradient(circle, rgba(42, 123, 168, 0.08) 0%, transparent 70%);
+      filter: blur(90px);
+      animation: hlOrbDrift 20s ease-in-out infinite 3s;
+    }
+  }
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  // Content above bg
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  // ── Grid ──
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: $space-6;
+
+    @include responsive(md) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $space-8;
+    }
+  }
+}
+
+@keyframes hlOrbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(28px, -20px) scale(1.06); }
+  66%      { transform: translate(-20px, 16px) scale(0.94); }
+}
+
+// ── Highlight Card ──
+.highlight-card {
+  position: relative;
+  border-radius: $radius-xl;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.6s ease,
+              border-color 0.5s ease,
+              opacity 0.6s ease;
+  transition-delay: var(--hl-delay, 0ms);
+
+  .highlight-section__grid.is-visible & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    border-color: rgba(var(--hl-glow), 0.3);
+    box-shadow: 0 20px 48px -8px rgba(var(--hl-glow), 0.2),
+                0 0 0 1px rgba(var(--hl-glow), 0.1),
+                0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-6px);
+
+    .highlight-card__image img {
+      transform: scale(1.08);
+    }
+
+    .highlight-card__image-overlay {
+      opacity: 0.5;
+    }
+
+    .highlight-card__glow-top {
+      opacity: 1;
+    }
+  }
+
+  // ── Image ──
+  &__image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+  }
+
+  &__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(14, 18, 24, 0.7) 0%,
+      rgba(14, 18, 24, 0.1) 50%,
+      transparent 100%
+    );
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  // ── Badge ──
+  &__badge {
+    position: absolute;
+    top: $space-3;
+    left: $space-3;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 14px;
+    border-radius: $radius-full;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+    background: rgba(var(--hl-glow), 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  // ── Body ──
+  &__body {
+    padding: $space-5 $space-5 $space-6;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: $text-lg;
+    color: $color-white;
+    margin-bottom: $space-1;
+
+    @include responsive(md) {
+      font-size: $text-xl;
+    }
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: $space-3;
+
+    svg {
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+  }
+
+  &__description {
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.65;
+    margin-bottom: $space-4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // ── Stats ──
+  &__stats {
+    display: flex;
+    gap: $space-4;
+  }
+
+  &__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: $text-xs;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 4px 10px;
+    border-radius: $radius-full;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    svg {
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+  }
+
+  // ── Glow line ──
+  &__glow-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--hl-glow), 0.6),
+      rgba(var(--hl-glow), 0.8),
+      rgba(var(--hl-glow), 0.6),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+}
+
+// How It Works — Premium dark gradient section
+.how-section {
+  position: relative;
+  overflow: hidden;
+  padding: $space-12 0;
+
+  @include responsive(md) {
+    padding: $space-16 0;
+  }
+
+  @include responsive(lg) {
+    padding: $space-20 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      #0c1219 0%,
+      #111d2b 25%,
+      #162336 50%,
+      #111b28 75%,
+      #0c1219 100%
+    );
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      width: 650px;
+      height: 650px;
+      top: -20%;
+      left: -12%;
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.14) 0%, transparent 70%);
+      filter: blur(100px);
+      animation: howOrbDrift 22s ease-in-out infinite;
+    }
+
+    &--b {
+      width: 500px;
+      height: 500px;
+      bottom: -15%;
+      right: -8%;
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.12) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: howOrbDrift 28s ease-in-out infinite reverse;
+    }
+
+    &--c {
+      width: 400px;
+      height: 400px;
+      top: 40%;
+      left: calc(50% - 200px);
+      background: radial-gradient(circle, rgba(42, 123, 168, 0.08) 0%, transparent 70%);
+      filter: blur(90px);
+      animation: howOrbDrift 18s ease-in-out infinite 4s;
+    }
+  }
+
+  &__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  // Content above bg
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  // ── Grid ──
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-8;
 
     @include responsive(sm) {
       grid-template-columns: repeat(2, 1fr);
@@ -290,8 +868,26 @@
 
     @include responsive(lg) {
       grid-template-columns: repeat(4, 1fr);
+      gap: $space-8;
     }
   }
+
+  // ── Card overrides for dark background ──
+  .step-card {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+      box-shadow: 0 24px 48px -8px rgba(var(--step-glow), 0.25),
+                  0 0 0 1px rgba(var(--step-glow), 0.15),
+                  0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+@keyframes howOrbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -20px) scale(1.05); }
+  66%      { transform: translate(-20px, 15px) scale(0.95); }
 }
 
 // ============================================================
@@ -389,95 +985,8 @@ $rv-star: #eab308;
   &__header {
     position: relative;
     z-index: 10;
-    text-align: center;
     max-width: 48rem;
-    margin: 0 auto $space-16;
-
-    @include responsive(lg) {
-      margin-bottom: $space-20;
-    }
-  }
-
-  &__badge {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: $space-2;
-    padding: 8px $space-5;
-    border-radius: $radius-full;
-    margin-bottom: $space-6;
-    background: linear-gradient(135deg, rgba(58, 107, 85, 0.15), rgba(126, 104, 145, 0.1));
-    border: 1px solid rgba(58, 107, 85, 0.25);
-    color: #7E9B8A;
-    font-size: $text-sm;
-    font-weight: 600;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    svg { opacity: 0.7; }
-  }
-
-  &__title {
-    font-family: $font-heading;
-    font-size: $text-3xl;
-    font-weight: 500;
-    font-style: italic;
-    color: $color-white;
-    margin-bottom: $space-5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: $space-2;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @include responsive(md) {
-      font-size: $text-4xl;
-      gap: $space-3;
-    }
-
-    @include responsive(lg) {
-      font-size: $text-5xl;
-    }
-  }
-
-  &__curl {
-    flex-shrink: 0;
-    color: rgba(255, 255, 255, 0.25);
-
-    &--flip {
-      transform: scaleX(-1);
-    }
-  }
-
-  &__subtitle {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: $text-base;
-    line-height: 1.7;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @include responsive(lg) {
-      font-size: $text-lg;
-    }
+    margin: 0 auto;
   }
 
   // ── Slider wrap ──
@@ -780,70 +1289,61 @@ $rv-star: #eab308;
   z-index: 1;
 }
 
-.contact-v2__badge {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: $space-2;
-  padding: 8px $space-4;
-  border-radius: $radius-full;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  font-family: $font-body;
-  font-size: $text-sm;
-  font-weight: 500;
-  margin-bottom: $space-6;
-}
-
-.contact-v2__title {
-  font-family: $font-heading;
-  font-size: $text-3xl;
-  font-weight: 500;
-  font-style: italic;
-  color: $color-white;
-  margin-bottom: $space-5;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: $space-2;
-
-  @include responsive(md) {
-    font-size: $text-4xl;
-    gap: $space-3;
-  }
-
-  @include responsive(lg) {
-    font-size: $text-5xl;
-  }
-}
-
-.contact-v2__curl {
-  flex-shrink: 0;
-  color: rgba(255, 255, 255, 0.25);
-
-  &--flip {
-    transform: scaleX(-1);
-  }
-}
-
-.contact-v2__desc {
-  font-family: $font-body;
-  font-size: $text-sm;
-  color: rgba(255, 255, 255, 0.4);
-  max-width: 480px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-.contact-v2__arrow {
+// ── Premium Guide Arrow — scroll-driven width/height growth ──
+.contact-v2__guide-arrow {
   position: absolute;
-  top: 50px;
-  right: 8%;
-  opacity: 0.25;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: top left;
+  will-change: width, height;
 
   @media (max-width: #{$bp-md}) {
     display: none;
+  }
+}
+
+// ── Child SVG elements — always visible, animate with the container ──
+.contact-v2__guide-glow {
+  opacity: 0.6;
+}
+
+.contact-v2__guide-path {
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 0;
+}
+
+.contact-v2__guide-accent {
+  stroke-dasharray: 8 12;
+  opacity: 0.8;
+}
+
+.contact-v2__guide-head {
+  opacity: 1;
+}
+
+.contact-v2__guide-dot {
+  &--1 { animation: guideDotPulse 3s ease-in-out 0s infinite; }
+  &--2 { animation: guideDotPulse 3s ease-in-out 0.5s infinite; }
+  &--3 { animation: guideDotPulse 3s ease-in-out 1s infinite; }
+  &--4 { animation: guideDotPulse 3s ease-in-out 1.5s infinite; }
+}
+
+@keyframes guideDotPulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30%, 70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
   }
 }
 
@@ -883,8 +1383,37 @@ $rv-star: #eab308;
   }
 }
 
-// ── Labels ──
+// ── MUI Outlined Field ──
+.contact-v2__field {
+  position: relative;
+}
+
 .contact-v2__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: $font-body;
+  font-size: $text-base;
+  font-weight: 400;
+  color: $color-text-secondary;
+  padding: 16.5px 14px;
+  pointer-events: none;
+  transform-origin: top left;
+  transition: color 0.2s cubic-bezier(0, 0, 0.2, 1),
+              transform 0.2s cubic-bezier(0, 0, 0.2, 1),
+              max-width 0.2s cubic-bezier(0, 0, 0.2, 1);
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.contact-v2__req {
+  color: $color-error;
+}
+
+.contact-v2__group-label {
   display: block;
   font-family: $font-body;
   font-size: $text-sm;
@@ -893,47 +1422,178 @@ $rv-star: #eab308;
   margin-bottom: $space-2;
 }
 
-.contact-v2__req {
-  color: $color-error;
-}
-
 // ── Inputs ──
-.contact-v2__input,
-.contact-v2__select {
+.contact-v2__input {
   width: 100%;
-  padding: 12px $space-4;
+  padding: 16.5px 14px;
   font-family: $font-body;
   font-size: $text-base;
   color: $color-text;
-  background: $color-white;
-  border: 1px solid $color-border;
+  background: transparent;
+  border: 1px solid rgba($color-text-secondary, 0.38);
   border-radius: $radius-md;
-  transition: border-color $transition-fast, box-shadow $transition-fast;
-  min-height: 48px;
+  transition: border-color 0.2s cubic-bezier(0, 0, 0.2, 1);
+  min-height: 56px;
+  outline: none;
 
   &::placeholder {
-    color: $color-text-muted;
+    color: transparent;
   }
 
   &:hover {
-    border-color: #c0c8d4;
+    border-color: $color-text;
+  }
+
+  // Focused state
+  &:focus {
+    border-color: $color-primary;
+    border-width: 2px;
+    padding: 15.5px 13px; // compensate for thicker border
+
+    ~ .contact-v2__label {
+      color: $color-primary;
+      transform: translate(0, -9px) scale(0.75);
+      background: $color-white;
+      padding: 0 6px;
+      max-width: calc(133% - 32px);
+    }
+  }
+
+  // Filled state (placeholder trick — placeholder=" " is never shown)
+  &:not(:placeholder-shown) {
+    ~ .contact-v2__label {
+      transform: translate(0, -9px) scale(0.75);
+      background: $color-white;
+      padding: 0 6px;
+      max-width: calc(133% - 32px);
+    }
+  }
+}
+
+// ── Textarea ──
+.contact-v2__textarea {
+  width: 100%;
+  padding: 16.5px 14px;
+  font-family: $font-body;
+  font-size: $text-base;
+  color: $color-text;
+  background: transparent;
+  border: 1px solid rgba($color-text-secondary, 0.38);
+  border-radius: $radius-md;
+  transition: border-color 0.2s cubic-bezier(0, 0, 0.2, 1);
+  min-height: 120px;
+  resize: vertical;
+  outline: none;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:hover {
+    border-color: $color-text;
   }
 
   &:focus {
-    outline: none;
-    border-color: $color-primary-light;
-    box-shadow: 0 0 0 3px rgba($color-primary-light, 0.1);
+    border-color: $color-primary;
+    border-width: 2px;
+    padding: 15.5px 13px;
+
+    ~ .contact-v2__label {
+      color: $color-primary;
+      transform: translate(0, -9px) scale(0.75);
+      background: $color-white;
+      padding: 0 6px;
+      max-width: calc(133% - 32px);
+    }
+  }
+
+  &:not(:placeholder-shown) {
+    ~ .contact-v2__label {
+      transform: translate(0, -9px) scale(0.75);
+      background: $color-white;
+      padding: 0 6px;
+      max-width: calc(133% - 32px);
+    }
   }
 }
 
-.contact-v2__select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2364748B' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 44px;
+// ── Service Button Toggles ──
+.contact-v2__checkbox-group {
+  grid-column: 1 / -1;
+  margin-top: $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
 }
 
+.contact-v2__checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.contact-v2__checkbox {
+  cursor: pointer;
+  user-select: none;
+
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  // Active state
+  input:checked ~ .contact-v2__checkbox-label {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 2px 8px rgba($color-primary, 0.3);
+  }
+
+  input:focus-visible ~ .contact-v2__checkbox-label {
+    box-shadow: 0 0 0 3px rgba($color-primary-light, 0.25);
+  }
+
+  &:hover .contact-v2__checkbox-label {
+    border-color: $color-primary-light;
+    color: $color-primary;
+    background: rgba($color-primary, 0.04);
+  }
+
+  // Hover on active
+  input:checked ~ .contact-v2__checkbox-label:hover {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+    color: $color-white;
+  }
+}
+
+.contact-v2__checkmark {
+  display: none;
+}
+
+.contact-v2__checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 10px $space-5;
+  font-family: $font-body;
+  font-size: $text-sm;
+  font-weight: 500;
+  color: $color-text-secondary;
+  background: $color-white;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-full;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+// ── Full-width field ──
+.contact-v2__field--full {
+  grid-column: 1 / -1;
+  margin-top: $space-4;
+}
 
 // ── Submit Button ──
 .contact-v2__submit {
@@ -942,8 +1602,8 @@ $rv-star: #eab308;
   gap: $space-3;
   margin-top: $space-8;
   padding: 14px 20px 14px 28px;
-  background: #eab308;
-  color: $color-text;
+  background: linear-gradient(135deg, #513C60 0%, #42304F 100%);
+  color: $color-white;
   border-radius: $radius-full;
   font-family: $font-heading;
   font-size: $text-base;
@@ -953,9 +1613,9 @@ $rv-star: #eab308;
   cursor: pointer;
 
   &:hover {
-    background: #d4a206;
+    background: linear-gradient(135deg, #5e4570 0%, #513C60 100%);
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(234, 179, 8, 0.3);
+    box-shadow: 0 10px 28px rgba($color-accent, 0.35);
   }
 
   &:disabled {
@@ -970,7 +1630,7 @@ $rv-star: #eab308;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: $color-text;
+  background: rgba(255, 255, 255, 0.2);
   color: $color-white;
   @include flex-center;
   flex-shrink: 0;

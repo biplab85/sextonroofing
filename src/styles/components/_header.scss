@@ -70,10 +70,32 @@
     position: relative;
     white-space: nowrap;
 
-    &:hover,
+    // Active indicator line
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: $color-accent-light;
+      border-radius: 1px;
+      transform: translateX(-50%);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:hover {
+      color: $color-white;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
     &--active {
       color: $color-white;
       background: rgba(255, 255, 255, 0.08);
+
+      &::after {
+        width: 60%;
+      }
     }
 
     &:focus-visible {
@@ -231,11 +253,17 @@
     color: rgba(255, 255, 255, 0.85);
     padding: $space-3 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: color $transition-fast, padding-left $transition-normal;
+    transition: color $transition-fast, padding-left $transition-normal, border-color $transition-fast;
 
     &:hover {
       color: $color-accent-light;
       padding-left: $space-3;
+    }
+
+    &--active {
+      color: $color-accent-light;
+      padding-left: $space-3;
+      border-bottom-color: rgba($color-accent-light, 0.35);
     }
   }
 
