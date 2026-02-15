@@ -1,0 +1,98 @@
+@import '../variables';
+
+// ============================================================
+// Custom Cursor Follower
+// ============================================================
+
+// Hide default cursor when custom cursor is active (desktop only)
+.cursor-active {
+  cursor: none;
+
+  a, button, input, select, textarea,
+  [role="button"], .btn {
+    cursor: none;
+  }
+}
+
+// Inner dot — follows mouse directly
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: $color-white;
+  border-radius: $radius-full;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  will-change: transform;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              opacity 0.3s ease;
+  mix-blend-mode: difference;
+
+  &--hover {
+    width: 6px;
+    height: 6px;
+    background: $color-accent-light;
+    mix-blend-mode: normal;
+  }
+
+  &--click {
+    background: $color-accent;
+  }
+}
+
+// Outer ring — follows with smooth lag
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba($color-white, 0.5);
+  border-radius: $radius-full;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+  will-change: transform;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background 0.3s ease,
+              opacity 0.3s ease;
+
+  &--hover {
+    width: 56px;
+    height: 56px;
+    border-color: rgba($color-accent-light, 0.6);
+    background: rgba($color-accent, 0.08);
+  }
+
+  &--click {
+    border-color: rgba($color-accent, 0.8);
+  }
+}
+
+// Hide on touch devices and small screens
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  .cursor-active {
+    cursor: auto;
+
+    a, button, input, select, textarea,
+    [role="button"], .btn {
+      cursor: auto;
+    }
+
+    a, .btn {
+      cursor: pointer;
+    }
+  }
+}

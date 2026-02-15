@@ -1,0 +1,356 @@
+@import '../variables';
+@import '../mixins';
+
+// ============================================================
+// Footer — Dark Theme (Figma-match)
+// ============================================================
+
+$ft-bg: #0F172A;
+$ft-bg-top: #111827;
+$ft-text: rgba(255, 255, 255, 0.55);
+$ft-text-muted: rgba(255, 255, 255, 0.35);
+$ft-heading: #FFFFFF;
+$ft-divider: rgba(255, 255, 255, 0.06);
+$ft-accent: #EAB308;
+$ft-link-hover: #FFFFFF;
+
+.footer {
+  background: linear-gradient(180deg, $ft-bg-top 0%, $ft-bg 100%);
+  color: $ft-text;
+  border-radius: 24px 24px 0 0;
+
+  @include responsive(md) {
+    border-radius: 0;
+  }
+
+  &__inner {
+    @include container;
+    padding-top: $space-16;
+    padding-bottom: $space-8;
+
+    @include responsive(md) {
+      padding-top: 5rem;
+    }
+  }
+
+  // ── Main layout ──
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-10;
+    margin-bottom: $space-10;
+
+    @include responsive(md) {
+      flex-direction: row;
+      gap: 0;
+    }
+  }
+
+  // ── Brand Column (Left) ──
+  &__brand-col {
+    flex-shrink: 0;
+
+    @include responsive(md) {
+      width: 35%;
+      padding-right: $space-8;
+    }
+
+    @include responsive(lg) {
+      padding-right: $space-12;
+    }
+  }
+
+  &__logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: $space-6;
+    filter: brightness(0) invert(1);
+  }
+
+  // ── Social icons ──
+  &__social {
+    display: flex;
+    gap: $space-3;
+    margin-bottom: $space-8;
+  }
+
+  &__social-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    @include flex-center;
+    color: $color-white;
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    svg { width: 16px; height: 16px; }
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &--fb {
+      background: #1877F2;
+      &:hover { box-shadow: 0 4px 16px rgba(24, 119, 242, 0.4); }
+    }
+
+    &--ig {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      &:hover { box-shadow: 0 4px 16px rgba(225, 48, 108, 0.4); }
+    }
+
+    &--li {
+      background: #0A66C2;
+      &:hover { box-shadow: 0 4px 16px rgba(10, 102, 194, 0.4); }
+    }
+  }
+
+  // ── Contact items ──
+  &__contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-3;
+    font-size: $text-sm;
+    color: $ft-text;
+    line-height: 1.6;
+
+    > svg {
+      width: 18px;
+      height: 18px;
+      color: $ft-accent;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: $ft-text;
+      font-weight: 500;
+
+      &:hover {
+        color: $ft-link-hover;
+      }
+    }
+  }
+
+  // ── Vertical Divider ──
+  &__divider {
+    display: none;
+
+    @include responsive(md) {
+      display: block;
+      width: 1px;
+      background: $ft-divider;
+      flex-shrink: 0;
+      margin: 0 $space-8;
+    }
+
+    @include responsive(lg) {
+      margin: 0 $space-12;
+    }
+  }
+
+  // ── Link Columns (Desktop) ──
+  &__links-zone {
+    display: none;
+
+    @include responsive(md) {
+      display: flex;
+      flex: 1;
+      gap: $space-8;
+    }
+
+    @include responsive(lg) {
+      gap: $space-10;
+    }
+  }
+
+  &__link-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-8;
+  }
+
+  &__link-group {
+    // individual group
+  }
+
+  &__col-title {
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: $text-base;
+    color: $ft-heading;
+    margin-bottom: $space-4;
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    a {
+      color: $ft-text;
+      font-size: $text-sm;
+      transition: color $transition-fast, padding-left $transition-fast;
+
+      &:hover {
+        color: $ft-link-hover;
+        padding-left: $space-1;
+      }
+    }
+  }
+
+  // ── Mobile Accordion ──
+  &__accordion {
+    display: flex;
+    flex-direction: column;
+
+    @include responsive(md) {
+      display: none;
+    }
+  }
+
+  &__accordion-item {
+    border-top: 1px solid $ft-divider;
+
+    &:last-child {
+      border-bottom: 1px solid $ft-divider;
+    }
+  }
+
+  &__accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-4 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: $text-base;
+    color: $ft-heading;
+
+    svg {
+      color: $ft-text;
+      flex-shrink: 0;
+    }
+  }
+
+  &__accordion-body {
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease;
+
+    ul {
+      list-style: none;
+      padding-bottom: $space-4;
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+    }
+
+    a {
+      color: $ft-text;
+      font-size: $text-sm;
+
+      &:hover {
+        color: $ft-link-hover;
+      }
+    }
+  }
+
+  // ── Bottom Bar ──
+  &__bottom {
+    border-top: 1px solid $ft-divider;
+    padding-top: $space-5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    align-items: center;
+    text-align: center;
+    font-size: $text-sm;
+    color: $ft-text-muted;
+
+    @include responsive(md) {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  &__bottom-left {
+    display: flex;
+    gap: $space-6;
+
+    a {
+      color: $ft-text-muted;
+      font-size: $text-sm;
+
+      &:hover {
+        color: $ft-link-hover;
+      }
+    }
+  }
+
+  &__bottom-right {
+    color: $ft-text-muted;
+    font-size: $text-sm;
+  }
+}
+
+// ============================================================
+// Floating CTA (Mobile)
+// ============================================================
+.floating-cta {
+  position: fixed;
+  bottom: $space-6;
+  right: $space-4;
+  z-index: 900;
+  display: flex;
+
+  @include responsive(lg) {
+    display: none;
+  }
+
+  &__button {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-full;
+    background: linear-gradient(135deg, $color-accent, $color-accent-hover);
+    color: $color-white;
+    @include flex-center;
+    box-shadow: 0 4px 20px rgba($color-accent, 0.4);
+    transition: transform $transition-fast, box-shadow $transition-fast;
+    text-decoration: none;
+    animation: pulse 2.5s infinite;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba($color-accent, 0.5);
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba($color-accent, 0.4); }
+  50% { box-shadow: 0 4px 30px rgba($color-accent, 0.6); }
+}

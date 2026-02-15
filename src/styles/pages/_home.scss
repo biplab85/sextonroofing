@@ -1,0 +1,1016 @@
+@import '../variables';
+@import '../mixins';
+
+// ============================================================
+// Homepage Sections
+// ============================================================
+
+// Trust Bar
+.trust-bar {
+  background: linear-gradient(180deg, $color-bg-alt 0%, $color-white 100%);
+  border-bottom: 1px solid $color-border;
+  padding: $space-6 0;
+
+  @include responsive(md) {
+    padding: $space-8 0;
+  }
+
+  &__inner {
+    @include container;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-4;
+
+    @include responsive(sm) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include responsive(lg) {
+      grid-template-columns: repeat(5, 1fr);
+      gap: $space-6;
+    }
+  }
+
+  &__item {
+    @include flex-center;
+    flex-direction: column;
+    gap: $space-2;
+    text-align: center;
+    padding: $space-3;
+
+    @include responsive(lg) {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-lg;
+    background: rgba($color-primary-light, 0.08);
+    @include flex-center;
+    flex-shrink: 0;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      color: $color-primary-light;
+    }
+  }
+
+  &__text {
+    &-label {
+      font-family: $font-heading;
+      font-weight: 500;
+      font-size: $text-base;
+      color: $color-primary;
+      line-height: 1.2;
+    }
+
+    &-desc {
+      font-size: $text-xs;
+      color: $color-text-secondary;
+    }
+  }
+}
+
+// Services Section — Dark theme with constellation background
+.services-section {
+  position: relative;
+  padding: $space-16 0;
+  overflow: hidden;
+
+  @include responsive(lg) {
+    padding: $space-24 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #0d1117 0%, #111827 40%, #0f172a 70%, #0d1117 100%);
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &--a {
+      top: 0;
+      left: 25%;
+      width: 700px;
+      height: 700px;
+      opacity: 0.12;
+      filter: blur(140px);
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.6) 0%, transparent 70%);
+      animation: svcOrbA 24s ease-in-out infinite;
+    }
+
+    &--b {
+      bottom: 0;
+      right: 25%;
+      width: 600px;
+      height: 600px;
+      opacity: 0.10;
+      filter: blur(120px);
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.5) 0%, transparent 70%);
+      animation: svcOrbB 30s ease-in-out infinite;
+    }
+  }
+
+  &__grid-pattern {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+  }
+
+  &__constellation {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  // ── Content ──
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $space-10;
+
+    @include responsive(md) {
+      margin-bottom: $space-12;
+    }
+  }
+
+  &__badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 8px $space-5;
+    border-radius: $radius-full;
+    background: linear-gradient(135deg, rgba(58, 107, 85, 0.15), rgba(126, 104, 145, 0.1));
+    border: 1px solid rgba(58, 107, 85, 0.25);
+    color: #7E9B8A;
+    font-size: $text-sm;
+    font-weight: 600;
+    margin-bottom: $space-6;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    svg { opacity: 0.7; }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $text-3xl;
+    font-weight: 500;
+    font-style: italic;
+    color: $color-white;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-3;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @include responsive(md) {
+      font-size: $text-4xl;
+    }
+  }
+
+  &__curl {
+    color: rgba(255, 255, 255, 0.35);
+    flex-shrink: 0;
+
+    &--flip {
+      transform: scaleX(-1);
+    }
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: $text-lg;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-5;
+
+    @include responsive(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(lg) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-6;
+    }
+  }
+}
+
+@keyframes svcOrbA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(50px, -30px) scale(1.08); }
+  66%      { transform: translate(-30px, 40px) scale(0.92); }
+}
+
+@keyframes svcOrbB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-40px, 25px) scale(1.06); }
+  66%      { transform: translate(35px, -35px) scale(0.94); }
+}
+
+// Why Choose Us
+.why-section {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-6;
+
+    @include responsive(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// How It Works
+.how-section {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-6;
+
+    @include responsive(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// ============================================================
+// Reviews Section — Coverflow (appwedo-style)
+// ============================================================
+
+$rv-bg: #0a0d14;
+$rv-card-bg: rgba(10, 13, 20, 0.95);
+$rv-info-bg: rgba(18, 18, 26, 1);
+$rv-star: #eab308;
+
+.reviews-section {
+  position: relative;
+  padding: $space-24 0;
+  overflow: hidden;
+
+  @include responsive(lg) {
+    padding: 9rem 0;
+  }
+
+  // ── Background layers ──
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &__bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #0a0d14 0%, #0d1018 30%, #10141e 60%, #0a0e16 100%);
+  }
+
+  &__bg-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image:
+      linear-gradient(rgba(58, 107, 85, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58, 107, 85, 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+
+    &--a {
+      top: -128px;
+      right: 25%;
+      width: 550px;
+      height: 550px;
+      opacity: 0.06;
+      background: radial-gradient(circle, rgba(58, 107, 85, 0.6) 0%, transparent 70%);
+      animation: rvOrbA 24s ease-in-out infinite;
+    }
+
+    &--b {
+      bottom: -128px;
+      left: 33%;
+      width: 500px;
+      height: 500px;
+      opacity: 0.05;
+      background: radial-gradient(circle, rgba(126, 104, 145, 0.5) 0%, transparent 70%);
+      animation: rvOrbB 30s ease-in-out infinite;
+    }
+  }
+
+  &__glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    opacity: 0.04;
+    background: radial-gradient(circle, rgba(58, 107, 85, 0.5) 0%, rgba(126, 104, 145, 0.15) 50%, transparent 70%);
+    filter: blur(40px);
+    will-change: transform;
+  }
+
+  &__rays {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    display: none;
+
+    @include responsive(lg) {
+      display: block;
+    }
+  }
+
+  // ── Header ──
+  &__header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 48rem;
+    margin: 0 auto $space-16;
+
+    @include responsive(lg) {
+      margin-bottom: $space-20;
+    }
+  }
+
+  &__badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 8px $space-5;
+    border-radius: $radius-full;
+    margin-bottom: $space-6;
+    background: linear-gradient(135deg, rgba(58, 107, 85, 0.15), rgba(126, 104, 145, 0.1));
+    border: 1px solid rgba(58, 107, 85, 0.25);
+    color: #7E9B8A;
+    font-size: $text-sm;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    svg { opacity: 0.7; }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $text-3xl;
+    font-weight: 500;
+    font-style: italic;
+    color: $color-white;
+    margin-bottom: $space-5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @include responsive(md) {
+      font-size: $text-4xl;
+      gap: $space-3;
+    }
+
+    @include responsive(lg) {
+      font-size: $text-5xl;
+    }
+  }
+
+  &__curl {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.25);
+
+    &--flip {
+      transform: scaleX(-1);
+    }
+  }
+
+  &__subtitle {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: $text-base;
+    line-height: 1.7;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @include responsive(lg) {
+      font-size: $text-lg;
+    }
+  }
+
+  // ── Slider wrap ──
+  &__slider-wrap {
+    position: relative;
+    z-index: 10;
+    isolation: isolate;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ── Coverflow Swiper overrides ──
+.reviews-coverflow-slider {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 40px 0 !important;
+  overflow: hidden !important;
+
+  .swiper-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .swiper-slide {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+
+  .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+  }
+
+  .swiper-slide-prev,
+  .swiper-slide-next {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+.reviews-slide {
+  width: 280px !important;
+
+  @include responsive(sm) {
+    width: 320px !important;
+  }
+
+  @include responsive(md) {
+    width: 360px !important;
+  }
+
+  @include responsive(lg) {
+    width: 400px !important;
+  }
+}
+
+// ── Nav buttons ──
+.reviews-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 36, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &--prev { left: $space-3; @include responsive(sm) { left: $space-6; } @include responsive(lg) { left: $space-10; } }
+  &--next { right: $space-3; @include responsive(sm) { right: $space-6; } @include responsive(lg) { right: $space-10; } }
+
+  &:hover {
+    background: rgba(58, 107, 85, 0.8);
+    border-color: rgba(58, 107, 85, 0.8);
+    color: #fff;
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.92);
+  }
+
+  @media (max-width: #{$bp-sm - 1}) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+// ── Review Card (appwedo team-card style) ──
+.review-card {
+  position: relative;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  transition: all 0.5s ease;
+
+  &__top {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 13, 20, 0.95) 0%, rgba(10, 13, 20, 0.6) 40%, rgba(10, 13, 20, 0.2) 70%, rgba(10, 13, 20, 0.1) 100%);
+    transition: opacity 0.3s ease;
+  }
+
+  &__accent-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transition: opacity 0.5s ease;
+    z-index: 5;
+  }
+
+  // Source badge (like role badge)
+  &__badge {
+    position: absolute;
+    top: $space-3;
+    left: $space-3;
+    z-index: 10;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: $radius-full;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  // Quote content (centered in top area)
+  &__content {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-10 $space-5 $space-6;
+    text-align: center;
+  }
+
+  &__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: $space-4;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $rv-star;
+    }
+  }
+
+  &__quote {
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    max-width: 90%;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: $space-4;
+
+    @include responsive(md) {
+      font-size: $text-base;
+      -webkit-line-clamp: 7;
+    }
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-full;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.6), rgba(var(--accent-rgb), 0.3));
+    border: 2px solid rgba(var(--accent-rgb), 0.4);
+    @include flex-center;
+    color: $color-white;
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: $text-sm;
+    flex-shrink: 0;
+  }
+
+  &__border-top {
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-xl $radius-xl 0 0;
+    pointer-events: none;
+    transition: border-color 0.4s ease;
+  }
+
+  // Bottom info panel
+  &__info {
+    padding: $space-5;
+    background: $rv-info-bg;
+    border-radius: 0 0 $radius-xl $radius-xl;
+    transition: border-color 0.4s ease;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: $text-lg;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease;
+  }
+
+  &__location {
+    font-size: $text-sm;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  &__underline {
+    margin-top: $space-3;
+    height: 2px;
+    border-radius: $radius-full;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
+}
+
+// ── Orb animations ──
+@keyframes rvOrbA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(35px, -25px) scale(1.07); }
+  66% { transform: translate(-25px, 30px) scale(0.93); }
+}
+
+@keyframes rvOrbB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 20px) scale(1.05); }
+  66% { transform: translate(25px, -25px) scale(0.95); }
+}
+
+// ============================================================
+// Contact Section V2 — Dark header + White form card
+// ============================================================
+.contact-v2 {
+  position: relative;
+  overflow: hidden;
+}
+
+// ── Dark Header ──
+.contact-v2__header {
+  position: relative;
+  background: linear-gradient(180deg, #0c1a1e 0%, #0f2027 40%, #0c1c14 100%);
+  padding: $space-16 0 140px;
+  text-align: center;
+  overflow: hidden;
+
+  @include responsive(md) {
+    padding: $space-20 0 160px;
+  }
+}
+
+.contact-v2__header-inner {
+  @include container;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-v2__badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 8px $space-4;
+  border-radius: $radius-full;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: $font-body;
+  font-size: $text-sm;
+  font-weight: 500;
+  margin-bottom: $space-6;
+}
+
+.contact-v2__title {
+  font-family: $font-heading;
+  font-size: $text-3xl;
+  font-weight: 500;
+  font-style: italic;
+  color: $color-white;
+  margin-bottom: $space-5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+
+  @include responsive(md) {
+    font-size: $text-4xl;
+    gap: $space-3;
+  }
+
+  @include responsive(lg) {
+    font-size: $text-5xl;
+  }
+}
+
+.contact-v2__curl {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.25);
+
+  &--flip {
+    transform: scaleX(-1);
+  }
+}
+
+.contact-v2__desc {
+  font-family: $font-body;
+  font-size: $text-sm;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.contact-v2__arrow {
+  position: absolute;
+  top: 50px;
+  right: 8%;
+  opacity: 0.25;
+
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}
+
+// ── White Form Card ──
+.contact-v2__card-wrap {
+  @include container;
+  margin-top: -100px;
+  position: relative;
+  z-index: 2;
+  padding-bottom: $space-16;
+}
+
+.contact-v2__card {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $space-8 $space-5;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  @include responsive(md) {
+    padding: $space-10 $space-8;
+  }
+
+  @include responsive(lg) {
+    padding: $space-12 $space-10;
+  }
+}
+
+// ── Form Grid ──
+.contact-v2__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-6;
+  margin-bottom: $space-6;
+
+  @include responsive(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// ── Labels ──
+.contact-v2__label {
+  display: block;
+  font-family: $font-body;
+  font-size: $text-sm;
+  font-weight: 500;
+  color: $color-text;
+  margin-bottom: $space-2;
+}
+
+.contact-v2__req {
+  color: $color-error;
+}
+
+// ── Inputs ──
+.contact-v2__input,
+.contact-v2__select {
+  width: 100%;
+  padding: 12px $space-4;
+  font-family: $font-body;
+  font-size: $text-base;
+  color: $color-text;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  min-height: 48px;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:hover {
+    border-color: #c0c8d4;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary-light;
+    box-shadow: 0 0 0 3px rgba($color-primary-light, 0.1);
+  }
+}
+
+.contact-v2__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2364748B' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+}
+
+
+// ── Submit Button ──
+.contact-v2__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  margin-top: $space-8;
+  padding: 14px 20px 14px 28px;
+  background: #eab308;
+  color: $color-text;
+  border-radius: $radius-full;
+  font-family: $font-heading;
+  font-size: $text-base;
+  font-weight: 500;
+  transition: all 0.35s ease;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #d4a206;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(234, 179, 8, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.contact-v2__submit-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: $color-text;
+  color: $color-white;
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+// ── Error ──
+.contact-v2__error {
+  color: $color-error;
+  font-size: $text-sm;
+  margin-bottom: $space-3;
+}
+
+// ── Success State ──
+.contact-v2__success {
+  text-align: center;
+  padding: $space-16 $space-4;
+
+  &-icon {
+    width: 80px;
+    height: 80px;
+    background: $color-success-light;
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto $space-6;
+
+    svg {
+      color: $color-success;
+    }
+  }
+
+  h3 {
+    font-family: $font-heading;
+    font-size: $text-2xl;
+    color: $color-primary;
+    margin-bottom: $space-3;
+  }
+
+  p {
+    color: $color-text-secondary;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

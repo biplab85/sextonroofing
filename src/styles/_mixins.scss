@@ -1,0 +1,97 @@
+// ============================================================
+// Reusable SCSS Mixins
+// ============================================================
+
+@import 'variables';
+
+// Responsive breakpoint
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm { @media (min-width: $bp-sm) { @content; } }
+  @if $breakpoint == md { @media (min-width: $bp-md) { @content; } }
+  @if $breakpoint == lg { @media (min-width: $bp-lg) { @content; } }
+  @if $breakpoint == xl { @media (min-width: $bp-xl) { @content; } }
+}
+
+// Flex helpers
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Container
+@mixin container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: $space-4;
+  padding-right: $space-4;
+
+  @include responsive(md) {
+    padding-left: $space-8;
+    padding-right: $space-8;
+  }
+
+  @include responsive(lg) {
+    padding-left: $space-12;
+    padding-right: $space-12;
+  }
+}
+
+// Section padding
+@mixin section-padding {
+  padding-top: $space-12;
+  padding-bottom: $space-12;
+
+  @include responsive(md) {
+    padding-top: $space-16;
+    padding-bottom: $space-16;
+  }
+
+  @include responsive(lg) {
+    padding-top: $space-20;
+    padding-bottom: $space-20;
+  }
+}
+
+// Text truncation
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Scroll animation reveal
+@mixin reveal-base {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Stagger children
+@mixin stagger-children($count: 6, $delay: 0.1s) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      transition-delay: #{$i * $delay};
+    }
+  }
+}
