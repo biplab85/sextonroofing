@@ -6,15 +6,19 @@ import { navigation, business } from '@/data/content';
 import { useScrollHeader } from '@/hooks/useScrollHeader';
 import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy';
 import { useDrawer } from '@/context/DrawerContext';
+import { useTheme } from '@/context/ThemeContext';
 import { IconPhone, IconArrowRight } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import MobileNav from './MobileNav';
 
 export default function Header() {
   const scrolled = useScrollHeader(60);
   const activeHash = useScrollSpy(80);
   const { openDrawer } = useDrawer();
+  const { theme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const logoSrc = theme === 'light' ? '/images/SextonRoofingLogo.svg' : navigation.logo.src;
 
   return (
     <>
@@ -23,7 +27,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="#hero" className="header__logo" onClick={scrollToSection}>
             <img
-              src={navigation.logo.src}
+              src={logoSrc}
               alt={navigation.logo.alt}
               className="header__logo-img"
             />
@@ -70,6 +74,8 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="header__actions">
+            <ThemeToggle />
+
             <a href={business.phoneHref} className="header__phone">
               <IconPhone size={18} />
               {business.phone}

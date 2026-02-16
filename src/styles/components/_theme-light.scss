@@ -1,0 +1,988 @@
+@import '../variables';
+
+// ============================================================
+// Theme Toggle Button (both modes)
+// ============================================================
+.theme-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  &__icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+
+    &--visible {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+}
+
+// ============================================================
+// Light Mode — [data-theme="light"] overrides
+// ============================================================
+[data-theme="light"] {
+
+  // ── Smooth background transitions on key elements ──
+  .header,
+  .mobile-nav,
+  .hero,
+  .services-section,
+  .brand-showcase,
+  .why-section,
+  .vid-section,
+  .gallery-section,
+  .coverage-section,
+  .highlight-section,
+  .how-section,
+  .reviews-section,
+  .contact-v2__header,
+  .faq-section {
+    transition: background 0.3s ease, background-color 0.3s ease;
+  }
+
+  // ============================================================
+  // Theme Toggle — light mode appearance
+  // ============================================================
+  .theme-toggle {
+    background: rgba($color-primary, 0.08);
+    border-color: rgba($color-primary, 0.15);
+
+    &:hover {
+      background: rgba($color-primary, 0.14);
+      border-color: rgba($color-primary, 0.25);
+    }
+
+    &__icon {
+      color: $color-primary;
+    }
+  }
+
+  // ============================================================
+  // Header
+  // ============================================================
+  .header {
+    &--scrolled {
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    &__link {
+      color: rgba($color-text, 0.7);
+
+      &:hover {
+        color: $color-primary;
+        background: rgba($color-primary, 0.06);
+      }
+
+      &--active {
+        color: $color-primary;
+        background: rgba($color-primary, 0.06);
+      }
+    }
+
+    &__phone {
+      color: $color-text;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    &__hamburger span {
+      background: $color-text;
+    }
+  }
+
+  // Only override links/phone when scrolled (on hero they stay white)
+  .header--scrolled {
+    .header__link {
+      color: rgba($color-text, 0.7);
+
+      &:hover {
+        color: $color-primary;
+        background: rgba($color-primary, 0.06);
+      }
+
+      &--active {
+        color: $color-primary;
+        background: rgba($color-primary, 0.06);
+      }
+    }
+
+    .header__phone {
+      color: $color-text;
+
+      svg {
+        color: $color-accent;
+      }
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    .header__hamburger span {
+      background: $color-text;
+    }
+
+    .theme-toggle {
+      background: rgba($color-primary, 0.08);
+      border-color: rgba($color-primary, 0.15);
+
+      &:hover {
+        background: rgba($color-primary, 0.14);
+      }
+
+      .theme-toggle__icon {
+        color: $color-primary;
+      }
+    }
+  }
+
+  // ============================================================
+  // Mobile Nav
+  // ============================================================
+  .mobile-nav {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+
+    &__link {
+      color: rgba($color-text, 0.85);
+
+      &:hover {
+        color: $color-accent;
+      }
+
+      &--active {
+        color: $color-accent;
+      }
+    }
+
+    &__sub-links a {
+      color: rgba($color-text, 0.55);
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    &__phone-link {
+      color: $color-accent;
+    }
+  }
+
+  // ============================================================
+  // Hero
+  // ============================================================
+  .hero {
+    background: linear-gradient(160deg, #f0f4f2 0%, #e8efe6 30%, #f2f0f5 70%, #eef1f5 100%);
+  }
+
+  .hero__overlay-base,
+  .hero__aurora {
+    opacity: 0.05;
+  }
+
+  .hero__orb {
+    opacity: 0.03;
+  }
+
+  .hero__headline-word {
+    color: $color-primary;
+  }
+
+  .hero__subheadline {
+    color: $color-text-secondary;
+  }
+
+  .hero__badge {
+    background: rgba($color-primary, 0.06);
+    border: 1px solid rgba($color-primary, 0.12);
+  }
+
+  .hero__badge-text {
+    color: $color-primary-light;
+  }
+
+  .hero__cta-secondary {
+    color: $color-text;
+    background: rgba($color-primary, 0.04);
+    border-color: rgba($color-primary, 0.2);
+
+    &:hover {
+      background: rgba($color-primary, 0.08);
+      border-color: rgba($color-primary, 0.3);
+      color: $color-primary;
+    }
+  }
+
+  .hero__stat-value {
+    color: $color-primary;
+  }
+
+  .hero__stat:hover .hero__stat-value {
+    color: $color-accent;
+  }
+
+  .hero__stat-label {
+    color: $color-text-secondary;
+  }
+
+  .hero__stat:hover .hero__stat-label {
+    color: $color-text;
+  }
+
+  // Hero form card — light styling
+  .hero__form-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba($color-primary, 0.12);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba($color-primary, 0.06);
+
+    .hero__form-title {
+      color: $color-primary;
+    }
+
+    .form__label {
+      color: $color-text-secondary;
+    }
+
+    .form__input,
+    .form__select,
+    .form__textarea {
+      background: rgba($color-primary, 0.03);
+      border-color: rgba($color-primary, 0.15);
+      color: $color-text;
+
+      &::placeholder {
+        color: $color-text-muted;
+      }
+
+      &:hover {
+        border-color: rgba($color-primary, 0.25);
+      }
+
+      &:focus {
+        border-color: $color-primary-light;
+        background: $color-white;
+        box-shadow: 0 0 0 3px rgba($color-primary-light, 0.15);
+      }
+    }
+
+    .form__select {
+      color: $color-text-secondary;
+
+      option {
+        background: $color-white;
+        color: $color-text;
+      }
+    }
+
+    .form__success-title {
+      color: $color-primary;
+    }
+
+    .form__success-text {
+      color: $color-text-secondary;
+    }
+  }
+
+  .hero__form-card-shine {
+    background: linear-gradient(90deg, transparent 5%, rgba($color-primary, 0.15) 30%, rgba($color-accent, 0.1) 70%, transparent 95%);
+  }
+
+  .hero__float-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba($color-primary, 0.12);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero__float-card-title {
+    color: $color-primary;
+  }
+
+  .hero__float-card-desc {
+    color: $color-text-secondary;
+  }
+
+  .hero__ring {
+    &--a {
+      border-color: rgba($color-primary, 0.06);
+    }
+    &--b {
+      border-color: rgba($color-accent, 0.06);
+    }
+  }
+
+  // Hero animation (animated form)
+  .hero-anim__label {
+    color: $color-text-muted;
+
+    .hero-anim__field--active & {
+      color: $color-primary-light;
+    }
+
+    .hero-anim__field--complete & {
+      color: $color-text-secondary;
+    }
+  }
+
+  .hero-anim__input {
+    background: rgba($color-primary, 0.03);
+    border-color: rgba($color-primary, 0.12);
+
+    .hero-anim__field--active & {
+      border-color: rgba($color-primary-light, 0.5);
+      background: rgba($color-primary, 0.04);
+      box-shadow: 0 0 0 3px rgba($color-primary-light, 0.08);
+    }
+
+    .hero-anim__field--complete & {
+      border-color: rgba($color-primary-light, 0.2);
+      background: rgba($color-primary, 0.02);
+    }
+  }
+
+  .hero-anim__text {
+    color: $color-text;
+  }
+
+  .hero-anim__select-icon {
+    color: $color-text-muted;
+
+    .hero-anim__field--active & {
+      color: $color-primary-light;
+    }
+  }
+
+  .hero-anim__success-title {
+    color: $color-primary;
+  }
+
+  .hero-anim__success-text {
+    color: $color-text-secondary;
+  }
+
+  // ============================================================
+  // Services Section
+  // ============================================================
+  .services-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f8faf9 0%, #f0f5f2 40%, #f5f3f7 70%, #f8faf9 100%);
+    }
+
+    &__orb {
+      opacity: 0.06;
+    }
+
+    &__grid-pattern {
+      opacity: 0.015;
+    }
+  }
+
+  // Service cards — light style
+  .service-card {
+    background: $color-white;
+    border-color: $color-border;
+    backdrop-filter: none;
+    box-shadow: 0 2px 16px -4px rgba(0, 0, 0, 0.06);
+
+    &:hover,
+    &[data-active] {
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.1),
+                  0 0 0 1px rgba(var(--card-glow), 0.08);
+      background: linear-gradient(160deg, rgba(var(--card-glow), 0.04) 0%, $color-white 40%, rgba(var(--card-glow), 0.02) 100%);
+      border-color: rgba(var(--card-glow), 0.25);
+    }
+
+    &__title {
+      color: $color-primary;
+    }
+
+    &__description {
+      color: $color-text-secondary;
+
+      .service-card:hover &,
+      .service-card[data-active] & {
+        color: $color-text;
+      }
+    }
+
+    &__link {
+      color: $color-text-secondary;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &__bar {
+      background: rgba($color-primary, 0.06);
+    }
+
+    &__icon-area {
+      background: linear-gradient(135deg, rgba(var(--card-glow), 0.08) 0%, rgba(var(--card-glow), 0.04) 100%) !important;
+    }
+
+    &__icon-orb {
+      background: rgba(var(--card-glow), 0.06);
+    }
+  }
+
+  .svc-icon__svg {
+    color: rgba(var(--card-glow), 0.85);
+    filter: none;
+  }
+
+  // ============================================================
+  // Brand Showcase
+  // ============================================================
+  .brand-showcase {
+    &__bg-base {
+      background: linear-gradient(160deg, #f5f8f6 0%, #edf3ee 20%, #f0edf3 45%, #f2f5f8 70%, #f8f8fa 100%);
+    }
+
+    &__bg-orb {
+      opacity: 0.04;
+    }
+  }
+
+  .brand-showcase__badge {
+    background: rgba($color-primary, 0.06);
+    border-color: rgba($color-primary, 0.12);
+    color: $color-primary-light;
+  }
+
+  .brand-showcase__headline {
+    color: $color-primary;
+  }
+
+  .brand-showcase__desc {
+    color: $color-text-secondary;
+  }
+
+  .brand-showcase__stat {
+    background: rgba($color-white, 0.8);
+    border-color: $color-border;
+    backdrop-filter: none;
+
+    &:hover {
+      border-color: rgba($color-primary, 0.2);
+      box-shadow: 0 12px 40px -8px rgba($color-primary, 0.08);
+    }
+  }
+
+  .brand-showcase__stat-number {
+    color: $color-primary;
+  }
+
+  .brand-showcase__stat-label {
+    color: $color-text;
+  }
+
+  .brand-showcase__stat-desc {
+    color: $color-text-secondary;
+  }
+
+  // Brand showcase form card (reuses hero form card)
+  .brand-showcase__form-wrap .hero__form-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba($color-primary, 0.12);
+    box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.08);
+  }
+
+  // ============================================================
+  // Why Choose Us
+  // ============================================================
+  .why-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f5f8f6 0%, #edf5ef 25%, #f0f7f2 50%, #edf5ef 75%, #f5f8f6 100%);
+    }
+
+    &__orb {
+      opacity: 0.04;
+    }
+
+    .feature-card {
+      box-shadow: $shadow-sm;
+      border-color: $color-border;
+
+      &:hover {
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+
+  // ============================================================
+  // Video Section — warm-toned to contrast with cool Highlighted Projects
+  // ============================================================
+  .vid-section {
+    background: linear-gradient(160deg, #faf8f5 0%, #f5f0ea 30%, #f8f3ed 60%, #faf8f5 100%);
+    box-shadow: inset 0 1px 0 rgba($color-accent, 0.08), inset 0 -1px 0 rgba($color-accent, 0.08);
+  }
+
+  .vid-section__honeycomb {
+    opacity: 0.12;
+
+    // Warm tint for the honeycomb strokes in light mode
+    path {
+      stroke: rgba(168, 92, 58, 0.35) !important;
+    }
+  }
+
+  .vid-section__frame {
+    border-color: rgba($color-accent, 0.1);
+    background: rgba($color-accent, 0.015);
+  }
+
+  .vid-section__glow {
+    background: radial-gradient(
+      circle,
+      rgba($color-accent-light, 0.12) 0%,
+      rgba($color-accent, 0.06) 40%,
+      transparent 70%
+    );
+  }
+
+  .vid-section__ring-text {
+    fill: $color-text-secondary;
+  }
+
+  .vid-section__ring-bg {
+    background: rgba($color-accent, 0.06);
+    border-color: rgba($color-accent, 0.14);
+
+    &:hover {
+      background: rgba($color-accent, 0.1);
+      border-color: rgba($color-accent, 0.22);
+    }
+  }
+
+  .vid-section__play-btn {
+    background: $color-accent;
+    box-shadow: 0 8px 32px rgba($color-accent, 0.3);
+  }
+
+  .vid-section__play:hover .vid-section__play-btn {
+    box-shadow: 0 10px 40px rgba($color-accent, 0.45);
+  }
+
+  // ============================================================
+  // Gallery Section
+  // ============================================================
+  .gallery-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f5f6fa 0%, #eef0f5 25%, #f0eef5 50%, #eef0f5 75%, #f5f6fa 100%);
+    }
+
+    &__orb {
+      opacity: 0.04;
+    }
+  }
+
+  // Gallery preview cards — light macOS chrome
+  .gallery-preview__item {
+    background: #f5f5f7;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    &:hover {
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  .gallery-preview__chrome {
+    background: linear-gradient(180deg, #e8e8ea 0%, #dedee0 100%);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .gallery-preview__item:hover .gallery-preview__chrome {
+    background: linear-gradient(180deg, #f0f0f2 0%, #e5e5e7 100%);
+  }
+
+  .gallery-preview__url-bar {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .gallery-preview__item:hover .gallery-preview__url-bar {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .gallery-preview__lock {
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .gallery-preview__url-text {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .gallery-section .gallery-preview__cta .btn--secondary {
+    color: $color-text;
+    border-color: rgba($color-primary, 0.2);
+
+    &:hover {
+      background: rgba($color-primary, 0.06);
+      border-color: rgba($color-primary, 0.35);
+      color: $color-primary;
+    }
+  }
+
+  // ============================================================
+  // Coverage / Service Area
+  // ============================================================
+  .coverage-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f3f7fa 0%, #edf3f7 25%, #f0f5f8 50%, #edf3f7 75%, #f3f7fa 100%);
+    }
+
+    &__orb {
+      opacity: 0.04;
+    }
+
+    // Dark-variant county names on light bg
+    .service-area__county-name--dark {
+      color: $color-primary;
+
+      &::before {
+        background: $color-accent;
+      }
+    }
+
+    .service-area__county-town--dark {
+      background: $color-bg-alt;
+      color: $color-text-secondary;
+      border-color: $color-border;
+
+      &:hover {
+        background: rgba($color-primary-light, 0.08);
+        color: $color-primary;
+        border-color: $color-primary-light;
+      }
+    }
+  }
+
+  // SVG map adjustments
+  .area-map {
+    background: rgba($color-primary, 0.02);
+    border-color: rgba($color-primary, 0.1);
+
+    &__county-label {
+      fill: rgba($color-text, 0.35);
+    }
+
+    &__city-label {
+      fill: $color-text-secondary;
+
+      &--hq {
+        fill: $color-primary;
+      }
+    }
+
+    &__compass-letter {
+      fill: $color-text-muted;
+    }
+  }
+
+  // ============================================================
+  // Highlighted Projects
+  // ============================================================
+  .highlight-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f5f6fa 0%, #eef0f6 25%, #f2f0f6 50%, #eef0f6 75%, #f5f6fa 100%);
+    }
+
+    &__orb {
+      opacity: 0.04;
+    }
+  }
+
+  .highlight-card {
+    background: rgba($color-white, 0.9);
+    border-color: $color-border;
+
+    &__image-overlay {
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    }
+
+    &__title {
+      color: $color-primary;
+    }
+
+    &__location {
+      color: $color-text-secondary;
+    }
+
+    &__description {
+      color: $color-text-secondary;
+    }
+
+    &__stat {
+      color: $color-text-secondary;
+      background: rgba($color-primary, 0.04);
+      border-color: rgba($color-primary, 0.1);
+    }
+
+    &:hover {
+      border-color: rgba(var(--hl-glow), 0.25);
+      box-shadow: 0 20px 48px -8px rgba(var(--hl-glow), 0.1),
+                  0 0 0 1px rgba(var(--hl-glow), 0.06);
+    }
+  }
+
+  // ============================================================
+  // How It Works
+  // ============================================================
+  .how-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f3f5fa 0%, #edf1f8 25%, #f0eef6 50%, #edf1f8 75%, #f3f5fa 100%);
+    }
+
+    &__orb {
+      opacity: 0.04;
+    }
+
+    .step-card {
+      box-shadow: $shadow-sm;
+
+      &:hover {
+        box-shadow: 0 24px 48px -12px rgba(var(--step-glow), 0.12),
+                    0 0 0 1px rgba(var(--step-glow), 0.06);
+      }
+
+      &__icon-area {
+        background: linear-gradient(135deg, rgba(var(--step-glow), 0.08) 0%, rgba(var(--step-glow), 0.04) 100%) !important;
+      }
+
+      &__orb {
+        background: rgba(var(--step-glow), 0.06);
+      }
+    }
+  }
+
+  .step-icon__svg {
+    color: rgba(var(--step-glow), 0.85);
+    filter: none;
+  }
+
+  // ============================================================
+  // Reviews / Testimonials
+  // ============================================================
+  .reviews-section {
+    &__bg-base {
+      background: linear-gradient(160deg, #f5f6fa 0%, #eef0f5 30%, #f2f0f5 60%, #f5f6fa 100%);
+    }
+
+    &__bg-grid {
+      opacity: 0.02;
+      background-image:
+        linear-gradient(rgba($color-primary, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba($color-primary, 0.2) 1px, transparent 1px);
+    }
+
+    &__orb {
+      opacity: 0.03;
+    }
+  }
+
+  .review-card__overlay {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0.3) 70%, rgba(255, 255, 255, 0.15) 100%);
+  }
+
+  .review-card__quote {
+    color: $color-text-secondary;
+  }
+
+  .review-card__info {
+    background: $color-white;
+    border-color: $color-border;
+  }
+
+  .review-card__name {
+    color: $color-text;
+  }
+
+  .review-card__location {
+    color: $color-text-secondary;
+  }
+
+  .review-card__border-top {
+    border-color: $color-border;
+  }
+
+  .review-card__accent-line {
+    opacity: 0;
+  }
+
+  .reviews-nav-btn {
+    background: $color-white;
+    border-color: $color-border;
+    color: $color-text;
+
+    &:hover {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  // Hover & active overrides
+  .review-card:hover,
+  .swiper-slide-active .review-card {
+    .review-card__border-top {
+      border-color: rgba(var(--accent-rgb), 0.25);
+    }
+
+    .review-card__info {
+      border-color: rgba(var(--accent-rgb), 0.25);
+    }
+
+    .review-card__name {
+      color: rgba(var(--accent-rgb), 1);
+    }
+  }
+
+  // ============================================================
+  // Contact
+  // ============================================================
+  .contact-v2__header {
+    background: linear-gradient(180deg, #f0f4f2 0%, #e8efe6 40%, #edf0ed 100%);
+  }
+
+  // Guide arrow — adjust for light background
+  .contact-v2__guide-glow {
+    opacity: 0.4;
+  }
+
+  .contact-v2__guide-path {
+    stroke: rgba($color-accent, 0.15);
+  }
+
+  .contact-v2__guide-accent {
+    stroke: rgba($color-accent, 0.08);
+  }
+
+  .contact-v2__guide-head {
+    stroke: rgba($color-accent, 0.3);
+  }
+
+  .contact-v2__guide-dot {
+    &--1 { fill: rgba($color-primary, 0.2); }
+    &--2 { fill: rgba($color-accent, 0.2); }
+    &--3 { fill: rgba($color-accent, 0.25); }
+    &--4 { fill: rgba($color-accent, 0.15); }
+  }
+
+  // Form card — subtle border and shadow on light bg
+  .contact-v2__card {
+    border: 1px solid $color-border;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02);
+  }
+
+  .contact-v2__card-wrap {
+    padding-bottom: $space-16;
+  }
+
+  // ============================================================
+  // FAQ
+  // ============================================================
+  .faq-section {
+    background: #f5f6fa;
+  }
+
+  .faq-item {
+    background: $color-white;
+    border-color: $color-border;
+    border-left-color: rgba($color-accent, 0.2);
+
+    &:hover {
+      border-left-color: rgba($color-accent, 0.45);
+    }
+
+    &--open {
+      border-left-color: $color-accent;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    &__question {
+      color: $color-text;
+    }
+
+    &__icon {
+      color: $color-text-muted;
+    }
+
+    &__answer {
+      color: $color-text-secondary;
+    }
+  }
+
+  // ============================================================
+  // Section Headers (.sh--dark) — override to light text on light bg
+  // ============================================================
+  .sh--dark {
+    .sh__badge {
+      background: linear-gradient(135deg, rgba($color-primary, 0.06), rgba($color-accent, 0.04));
+      border-color: rgba($color-primary, 0.12);
+      color: $color-primary-light;
+    }
+
+    .sh__title {
+      color: $color-primary;
+    }
+
+    .sh__ornament {
+      color: $color-primary-light;
+      opacity: 0.45;
+    }
+
+    .sh__subtitle {
+      color: $color-text-secondary;
+    }
+  }
+
+  // ============================================================
+  // Custom Cursor — adjust for light background
+  // ============================================================
+  .cursor-dot {
+    background: $color-primary;
+    mix-blend-mode: normal;
+  }
+
+  .cursor-ring {
+    border-color: rgba($color-primary, 0.35);
+  }
+
+  // ============================================================
+  // Footer + Drawer — Stay dark in both modes
+  // ============================================================
+  // (No overrides needed — they remain dark by default)
+
+}

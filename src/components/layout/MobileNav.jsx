@@ -7,6 +7,7 @@ import { useDrawer } from '@/context/DrawerContext';
 import { scrollToSection } from '@/hooks/useScrollSpy';
 import { IconPhone } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function MobileNav({ isOpen, onClose, activeHash }) {
   const { openDrawer } = useDrawer();
@@ -57,6 +58,7 @@ export default function MobileNav({ isOpen, onClose, activeHash }) {
       </div>
 
       <div className="mobile-nav__bottom">
+        <ThemeToggle />
         <a href={business.phoneHref} className="mobile-nav__phone-link">
           <IconPhone size={22} />
           {business.phone}

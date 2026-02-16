@@ -1,6 +1,7 @@
 import { Archivo_Narrow, Work_Sans } from 'next/font/google';
 import { seo } from '@/data/content';
 import { DrawerProvider } from '@/context/DrawerContext';
+import { ThemeProvider, THEME_INIT_SCRIPT } from '@/context/ThemeContext';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
@@ -39,18 +40,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${archivoNarrow.variable} ${workSans.variable}`}>
+    <html lang="en" className={`${archivoNarrow.variable} ${workSans.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
-        <DrawerProvider>
-          <Header />
-          <main id="main-content">
-            {children}
-          </main>
-          <Footer />
-          <FloatingCTA />
-          <CursorFollower />
-          <FormDrawer />
-        </DrawerProvider>
+        <ThemeProvider>
+          <DrawerProvider>
+            <Header />
+            <main id="main-content">
+              {children}
+            </main>
+            <Footer />
+            <FloatingCTA />
+            <CursorFollower />
+            <FormDrawer />
+          </DrawerProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
