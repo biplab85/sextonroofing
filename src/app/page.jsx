@@ -1,6 +1,7 @@
 import Hero from '@/components/home/Hero';
 import TrustBar from '@/components/home/TrustBar';
 import ServiceCards from '@/components/home/ServiceCards';
+import BrandShowcase from '@/components/home/BrandShowcase';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import VideoSection from '@/components/home/VideoSection';
 import HowItWorks from '@/components/home/HowItWorks';
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <ServiceCards />
+      <BrandShowcase />
       <WhyChooseUs />
       <VideoSection />
       <HighlightedProjects />
