@@ -26,6 +26,9 @@ export const metadata = {
   title: seo.home.title,
   description: seo.home.description,
   keywords: seo.home.keywords.join(', '),
+  icons: {
+    icon: '/images/site_favicon.ico',
+  },
   openGraph: {
     title: seo.home.title,
     description: seo.home.description,
