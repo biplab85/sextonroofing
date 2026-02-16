@@ -1517,10 +1517,37 @@ $rv-star: #eab308;
   }
 }
 
+// ── Bottom Row: State + Services (left) | Message (right) ──
+.contact-v2__bottom-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-6;
+  margin-bottom: $space-6;
+
+  @include responsive(md) {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+}
+
+.contact-v2__bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.contact-v2__bottom-right {
+  position: relative;
+
+  .contact-v2__textarea {
+    height: 100%;
+    min-height: 160px;
+  }
+}
+
 // ── Service Button Toggles ──
 .contact-v2__checkbox-group {
-  grid-column: 1 / -1;
-  margin-top: $space-4;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: $space-3;
@@ -1592,7 +1619,6 @@ $rv-star: #eab308;
 // ── Full-width field ──
 .contact-v2__field--full {
   grid-column: 1 / -1;
-  margin-top: $space-4;
 }
 
 // ── Submit Button ──
@@ -1600,7 +1626,6 @@ $rv-star: #eab308;
   display: inline-flex;
   align-items: center;
   gap: $space-3;
-  margin-top: $space-8;
   padding: 14px 20px 14px 28px;
   background: linear-gradient(135deg, #513C60 0%, #42304F 100%);
   color: $color-white;

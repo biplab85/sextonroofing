@@ -185,9 +185,9 @@ export default function ContactSection() {
             </div>
           ) : (
             <form className="contact-v2__form" onSubmit={handleSubmit} noValidate>
-              {/* Text fields — 2-column grid */}
+              {/* Text fields — 2-column grid (excluding State) */}
               <div className="contact-v2__row">
-                {contact.form.fields.map((field) => (
+                {contact.form.fields.filter((f) => f.name !== 'state').map((field) => (
                   <div key={field.name} className={`contact-v2__field${formData[field.name] ? ' contact-v2__field--filled' : ''}`}>
                     <input
                       id={`cf-${field.name}`}
@@ -206,41 +206,65 @@ export default function ContactSection() {
                 ))}
               </div>
 
-              {/* Service checkboxes */}
-              <div className="contact-v2__checkbox-group">
-                <span className="contact-v2__group-label">
-                  Service Needed <span className="contact-v2__req">*</span>
-                </span>
-                <div className="contact-v2__checkboxes">
-                  {contact.form.services.map((svc) => (
-                    <label key={svc.value} className="contact-v2__checkbox">
+              {/* Bottom section: State + Services (left) | Message (right) */}
+              <div className="contact-v2__bottom-row">
+                <div className="contact-v2__bottom-left">
+                  {/* State field */}
+                  {contact.form.fields.filter((f) => f.name === 'state').map((field) => (
+                    <div key={field.name} className={`contact-v2__field${formData[field.name] ? ' contact-v2__field--filled' : ''}`}>
                       <input
-                        type="checkbox"
-                        name="service"
-                        value={svc.value}
-                        checked={selectedServices.includes(svc.value)}
-                        onChange={() => handleCheckbox(svc.value)}
+                        id={`cf-${field.name}`}
+                        type={field.type}
+                        name={field.name}
+                        required={field.required}
+                        className="contact-v2__input"
+                        onChange={handleChange}
+                        placeholder=" "
                       />
-                      <span className="contact-v2__checkmark" />
-                      <span className="contact-v2__checkbox-label">{svc.label}</span>
-                    </label>
+                      <label className="contact-v2__label" htmlFor={`cf-${field.name}`}>
+                        {field.label}
+                        {field.required && <span className="contact-v2__req"> *</span>}
+                      </label>
+                    </div>
                   ))}
-                </div>
-              </div>
 
-              {/* Message textarea */}
-              <div className={`contact-v2__field contact-v2__field--full${formData.message ? ' contact-v2__field--filled' : ''}`}>
-                <textarea
-                  id="cf-message"
-                  name="message"
-                  className="contact-v2__textarea"
-                  onChange={handleChange}
-                  rows={4}
-                  placeholder=" "
-                />
-                <label className="contact-v2__label" htmlFor="cf-message">
-                  Message
-                </label>
+                  {/* Service checkboxes */}
+                  <div className="contact-v2__checkbox-group">
+                    <span className="contact-v2__group-label">
+                      Service Needed <span className="contact-v2__req">*</span>
+                    </span>
+                    <div className="contact-v2__checkboxes">
+                      {contact.form.services.map((svc) => (
+                        <label key={svc.value} className="contact-v2__checkbox">
+                          <input
+                            type="checkbox"
+                            name="service"
+                            value={svc.value}
+                            checked={selectedServices.includes(svc.value)}
+                            onChange={() => handleCheckbox(svc.value)}
+                          />
+                          <span className="contact-v2__checkmark" />
+                          <span className="contact-v2__checkbox-label">{svc.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Message textarea */}
+                <div className={`contact-v2__field contact-v2__bottom-right${formData.message ? ' contact-v2__field--filled' : ''}`}>
+                  <textarea
+                    id="cf-message"
+                    name="message"
+                    className="contact-v2__textarea"
+                    onChange={handleChange}
+                    rows={4}
+                    placeholder=" "
+                  />
+                  <label className="contact-v2__label" htmlFor="cf-message">
+                    Message
+                  </label>
+                </div>
               </div>
 
               {status === 'error' && (
