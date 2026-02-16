@@ -8,7 +8,7 @@ export default function ThemeToggle() {
 
   // Prevent layout shift before mount — render placeholder with same dimensions
   if (!mounted) {
-    return <div className="theme-toggle" style={{ width: 40, height: 40 }} />;
+    return <div className="theme-toggle" style={{ width: 24, height: 24 }} />;
   }
 
   const isDark = theme === 'dark';

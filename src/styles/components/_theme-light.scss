@@ -5,23 +5,18 @@
 // ============================================================
 .theme-toggle {
   position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   flex-shrink: 0;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.25);
-  }
+  padding: 0;
 
   &__icon {
     position: absolute;
@@ -68,14 +63,6 @@
   // Theme Toggle — light mode appearance
   // ============================================================
   .theme-toggle {
-    background: rgba($color-primary, 0.08);
-    border-color: rgba($color-primary, 0.15);
-
-    &:hover {
-      background: rgba($color-primary, 0.14);
-      border-color: rgba($color-primary, 0.25);
-    }
-
     &__icon {
       color: $color-primary;
     }
