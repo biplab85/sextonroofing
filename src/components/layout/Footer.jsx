@@ -156,12 +156,12 @@ export default function Footer() {
           <div className="footer__links-zone">
             {linkGroups.map((group, gi) => (
               <div key={gi} className="footer__link-col">
-                {group.sections.map((section, si) => (
-                  <div key={si} className="footer__link-group">
+                {group.sections.map((section) => (
+                  <div key={section.title} className="footer__link-group">
                     <h4 className="footer__col-title">{section.title}</h4>
                     <ul className="footer__links">
-                      {section.links.map((link, li) => (
-                        <li key={li}>
+                      {section.links.map((link) => (
+                        <li key={link.label}>
                           <Link href={link.href}>{link.label}</Link>
                         </li>
                       ))}
@@ -174,13 +174,13 @@ export default function Footer() {
 
           {/* Mobile Accordion */}
           <div className="footer__accordion">
-            {allSections.map((section, idx) => {
-              const isOpen = openAccordion === idx;
+            {allSections.map((section) => {
+              const isOpen = openAccordion === section.title;
               return (
-                <div key={idx} className="footer__accordion-item">
+                <div key={section.title} className="footer__accordion-item">
                   <button
                     className="footer__accordion-trigger"
-                    onClick={() => toggleAccordion(idx)}
+                    onClick={() => toggleAccordion(section.title)}
                     aria-expanded={isOpen}
                   >
                     <span>{section.title}</span>
@@ -194,8 +194,8 @@ export default function Footer() {
                     }}
                   >
                     <ul>
-                      {section.links.map((link, li) => (
-                        <li key={li}>
+                      {section.links.map((link) => (
+                        <li key={link.label}>
                           <Link href={link.href}>{link.label}</Link>
                         </li>
                       ))}

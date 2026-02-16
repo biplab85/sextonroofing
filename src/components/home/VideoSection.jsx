@@ -31,7 +31,7 @@ export default function VideoSection() {
 
   return (
     <>
-      <section className="vid-section">
+      <section className="vid-section" id="video">
         {/* Honeycomb pattern overlay */}
         <svg className="vid-section__honeycomb" width="100%" height="100%" aria-hidden="true">
           <defs>

@@ -19,10 +19,10 @@ export default function HomePage() {
       <ServiceCards />
       <WhyChooseUs />
       <VideoSection />
-      <HowItWorks />
-      <Testimonials />
-      <GalleryPreview />
       <HighlightedProjects />
+      <Testimonials />
+      <HowItWorks />
+      <GalleryPreview />
       <ServiceArea />
       <FAQ />
       <ContactSection />

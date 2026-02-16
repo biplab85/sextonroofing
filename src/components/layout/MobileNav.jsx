@@ -38,14 +38,14 @@ export default function MobileNav({ isOpen, onClose, activeHash }) {
                 href={link.href}
                 className={`mobile-nav__link ${isActive ? 'mobile-nav__link--active' : ''}`}
                 onClick={handleNavClick}
-                aria-current={isActive ? 'true' : undefined}
+                aria-current={isActive ? 'page' : undefined}
               >
                 {link.label}
               </Link>
               {link.children && (
                 <div className="mobile-nav__sub-links">
                   {link.children.map((child) => (
-                    <Link key={child.href} href={child.href} onClick={handleNavClick}>
+                    <Link key={child.label} href={child.href} onClick={handleNavClick}>
                       {child.label}
                     </Link>
                   ))}

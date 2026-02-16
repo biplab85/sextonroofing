@@ -252,8 +252,7 @@
     font-size: $text-2xl;
     color: rgba(255, 255, 255, 0.85);
     padding: $space-3 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: color $transition-fast, padding-left $transition-normal, border-color $transition-fast;
+    transition: color $transition-fast, padding-left $transition-normal;
 
     &:hover {
       color: $color-accent-light;
@@ -263,7 +262,6 @@
     &--active {
       color: $color-accent-light;
       padding-left: $space-3;
-      border-bottom-color: rgba($color-accent-light, 0.35);
     }
   }
 

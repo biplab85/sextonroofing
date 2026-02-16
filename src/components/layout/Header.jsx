@@ -6,7 +6,7 @@ import { navigation, business } from '@/data/content';
 import { useScrollHeader } from '@/hooks/useScrollHeader';
 import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy';
 import { useDrawer } from '@/context/DrawerContext';
-import { IconPhone, IconChevronDown, IconArrowRight } from '@/components/ui/Icons';
+import { IconPhone, IconArrowRight } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
 import MobileNav from './MobileNav';
 
@@ -41,14 +41,14 @@ export default function Header() {
                     className={`header__link ${isActive ? 'header__link--active' : ''}`}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                     onClick={scrollToSection}
-                    aria-current={isActive ? 'true' : undefined}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
                     <IconChevronDown size={14} />
                   </Link>
                   <div className="header__dropdown-menu">
                     {link.children.map((child) => (
-                      <Link key={child.href} href={child.href} onClick={scrollToSection}>
+                      <Link key={child.label} href={child.href} onClick={scrollToSection}>
                         {child.label}
                       </Link>
                     ))}
@@ -56,11 +56,11 @@ export default function Header() {
                 </div>
               ) : (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={`header__link ${isActive ? 'header__link--active' : ''}`}
                   onClick={scrollToSection}
-                  aria-current={isActive ? 'true' : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {link.label}
                 </Link>

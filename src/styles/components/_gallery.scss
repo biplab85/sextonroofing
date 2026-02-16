@@ -2,76 +2,275 @@
 @import '../mixins';
 
 // ============================================================
-// Gallery Preview (Homepage)
+// Gallery Preview — Safari Browser Mockup Cards
 // ============================================================
 .gallery-preview {
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $space-4;
+    gap: $space-8;
 
     @include responsive(sm) {
       grid-template-columns: repeat(2, 1fr);
+      gap: $space-6;
     }
 
     @include responsive(lg) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      gap: $space-5;
     }
   }
 
+  // ── Card wrapper (entire browser frame) ──
   &__item {
     position: relative;
-    border-radius: $radius-lg;
+    border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
     cursor: pointer;
-    background: $color-bg-alt;
+    background: #1c1c1e;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.5),
+                  0 0 50px -12px rgba($color-primary-light, 0.12),
+                  0 2px 8px rgba(0, 0, 0, 0.25);
+
+      .gallery-preview__chrome {
+        background: linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 100%);
+      }
+
+      .gallery-preview__url-bar {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .gallery-preview__img-wrap img {
+        transform: scale(1.08);
+        filter: brightness(0.4) saturate(1.2);
+      }
+
+      .gallery-preview__tag {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+
+      .gallery-preview__info {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .gallery-preview__item-title {
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+      }
+
+      .gallery-preview__title-line {
+        width: 36px;
+        opacity: 1;
+      }
+
+      .gallery-preview__item-desc {
+        opacity: 1;
+        max-height: 80px;
+        transform: translateY(0);
+        transition-delay: 0.1s;
+      }
+    }
+  }
+
+  // ── Safari top bar (chrome) ──
+  &__chrome {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #333336 0%, #28282a 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.4s ease;
+    position: relative;
+    z-index: 6;
+  }
+
+  // ── Traffic light dots ──
+  &__dots {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+
+    &--red {
+      background: #ff5f57;
+      box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+    &--yellow {
+      background: #febc2e;
+      box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    &--green {
+      background: #28c840;
+      box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // ── URL bar ──
+  &__url-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+
+  &__lock {
+    color: rgba(255, 255, 255, 0.35);
+    flex-shrink: 0;
+  }
+
+  &__url-text {
+    font-family: -apple-system, BlinkMacSystemFont, $font-body;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // ── Viewport (content area below chrome) ──
+  &__viewport {
+    position: relative;
+    overflow: hidden;
+    margin: 6px 6px 6px;
+    border-radius: 8px;
+  }
+
+  &__img-wrap {
+    aspect-ratio: 3 / 4;
+    position: relative;
 
     img {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    &:hover {
-      img {
-        transform: scale(1.08);
-      }
-
-      .gallery-preview__overlay {
-        opacity: 1;
-      }
+      filter: brightness(0.72) saturate(1.05);
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
   &__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba($color-primary-dark, 0.85) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.35s ease;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: $space-5;
+    z-index: 2;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.3) 35%,
+      transparent 60%
+    );
+
+    @include responsive(md) {
+      padding: $space-6;
+    }
+  }
+
+  // Top-right arrow tag
+  &__tag {
+    position: absolute;
+    top: $space-4;
+    right: $space-4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    opacity: 0;
+    transform: translate(6px, -6px) scale(0.8);
+    transition: opacity 0.4s ease,
+                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.3s ease;
+    z-index: 3;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+  }
+
+  // Bottom info block
+  &__info {
+    position: relative;
+    transform: translateY(8px);
+    opacity: 0.9;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.55s ease;
+  }
+
+  // Accent line under title
+  &__title-line {
+    display: block;
+    width: 0;
+    height: 2px;
+    margin-top: $space-2;
+    background: linear-gradient(90deg, $color-primary-light, rgba($color-accent-light, 0.5));
+    border-radius: $radius-full;
+    opacity: 0;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+                opacity 0.4s ease 0.05s;
   }
 
   &__item-title {
     font-family: $font-heading;
-    font-weight: 500;
-    font-size: $text-base;
+    font-weight: 700;
+    font-size: 1rem;
     color: $color-white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.35;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    transition: text-shadow 0.4s ease;
   }
 
-  &__item-location {
+  &__item-desc {
+    font-family: $font-body;
     font-size: $text-sm;
-    color: $color-accent-light;
-  }
-
-  &__cta {
-    text-align: center;
-    margin-top: $space-10;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: $space-2;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease,
+                transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
@@ -177,7 +376,7 @@
   }
 
   @include responsive(lg) {
-    min-height: 0; // grid stretch handles height
+    min-height: 0;
   }
 
   &__svg {
@@ -189,7 +388,6 @@
     padding: $space-4 $space-3;
   }
 
-  // ── County outlines — draw-in animation ──
   &__county-stroke {
     stroke-dasharray: 2000;
     stroke-dashoffset: 2000;
@@ -201,7 +399,6 @@
     stroke-dashoffset: 0;
   }
 
-  // ── County fills — fade in after outline draws ──
   &__county-fill {
     opacity: 0;
     transition: opacity 0.8s ease, fill 0.3s ease;
@@ -213,7 +410,6 @@
     opacity: 1;
   }
 
-  // ── Connecticut River — draw-in ──
   &__river {
     stroke-dasharray: 1500;
     stroke-dashoffset: 1500;
@@ -228,7 +424,6 @@
     stroke-dashoffset: 0;
   }
 
-  // ── County labels — fade in ──
   &__county-label {
     font-family: $font-heading;
     font-size: 12px;
@@ -246,7 +441,6 @@
     opacity: 1;
   }
 
-  // ── City markers — scale in ──
   &__city {
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -261,7 +455,6 @@
     opacity: 1;
   }
 
-  // ── City labels ──
   &__city-label {
     font-family: $font-body;
     font-size: 9px;
@@ -276,7 +469,6 @@
     }
   }
 
-  // ── HQ tag ──
   &__hq-tag {
     font-family: $font-heading;
     font-size: 7px;
@@ -286,7 +478,6 @@
     pointer-events: none;
   }
 
-  // ── HQ pulsing rings ──
   &__hq-ring {
     fill: none;
     stroke: rgba(58, 107, 85, 0.35);
@@ -306,7 +497,6 @@
     opacity: 1;
   }
 
-  // ── Coverage radius pulses ──
   &__pulse {
     fill: none;
     stroke: rgba(58, 107, 85, 0.2);
@@ -325,7 +515,6 @@
     opacity: 1;
   }
 
-  // ── Compass ──
   &__compass-letter {
     font-family: $font-heading;
     font-size: 9px;
@@ -334,42 +523,17 @@
   }
 }
 
-// ── Keyframe animations ──
 @keyframes mapHQPulseOuter {
-  0% {
-    r: 6;
-    opacity: 0.5;
-    stroke-width: 1.5;
-  }
-  100% {
-    r: 28;
-    opacity: 0;
-    stroke-width: 0.3;
-  }
+  0% { r: 6; opacity: 0.5; stroke-width: 1.5; }
+  100% { r: 28; opacity: 0; stroke-width: 0.3; }
 }
 
 @keyframes mapHQPulseInner {
-  0% {
-    r: 5;
-    opacity: 0.4;
-    stroke-width: 1;
-  }
-  100% {
-    r: 20;
-    opacity: 0;
-    stroke-width: 0.3;
-  }
+  0% { r: 5; opacity: 0.4; stroke-width: 1; }
+  100% { r: 20; opacity: 0; stroke-width: 0.3; }
 }
 
 @keyframes mapCoveragePulse {
-  0% {
-    r: 10;
-    opacity: 0.3;
-    stroke-width: 1;
-  }
-  100% {
-    r: 180;
-    opacity: 0;
-    stroke-width: 0.2;
-  }
+  0% { r: 10; opacity: 0.3; stroke-width: 1; }
+  100% { r: 180; opacity: 0; stroke-width: 0.2; }
 }

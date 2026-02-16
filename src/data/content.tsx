@@ -48,19 +48,12 @@ export const navigation = {
   },
   links: [
     { label: "Home", href: "#hero" },
-    {
-      label: "Services",
-      href: "#services",
-      children: [
-        { label: "Roofing", href: "#services" },
-        { label: "Siding", href: "#services" },
-        { label: "Windows", href: "#services" },
-        { label: "Doors", href: "#services" },
-      ],
-    },
+    { label: "Services", href: "#services" },
     { label: "About", href: "#about" },
-    { label: "Gallery", href: "#gallery" },
+    { label: "Video", href: "#video" },
     { label: "Reviews", href: "#testimonials" },
+    { label: "Our Work", href: "#gallery" },
+    { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],
   cta: {
@@ -89,7 +82,7 @@ export const hero = {
     alt: "Completed Sexton Roofing project in Western Massachusetts",
   },
   form: {
-    title: "Request a Free Estimate",
+    title: "Getting Started Is Easy",
     fields: [
       { name: "name", label: "Your Name", type: "text" as const, placeholder: "John Smith", required: true },
       { name: "phone", label: "Phone Number", type: "tel" as const, placeholder: "(413) 555-0000", required: true },
@@ -315,54 +308,36 @@ export const testimonials = {
 };
 
 // ----------------------------------------------------------
-// Before & After Gallery
+// Our Work
 // ----------------------------------------------------------
 export const gallery = {
-  sectionTitle: "Our Work",
+  sectionTitle: "Our Craftsmanship",
   sectionSubtitle:
-    "See the transformation — real projects from Western Massachusetts homeowners.",
+    "Quality workmanship you can see — explore our latest projects across Western Massachusetts.",
   projects: [
     {
-      title: "Roof Replacement",
-      location: "Northampton, MA",
-      category: "roofing",
-      before: { src: "/images/gallery/roof-northampton-before.jpg", alt: "Roof before replacement in Northampton, MA" },
-      after: { src: "/images/gallery/roof-northampton-after.jpg", alt: "Roof after replacement in Northampton, MA" },
+      title: "Roofing Installation",
+      description: "Complete roof replacement with premium architectural shingles for lasting protection.",
+      src: "/images/our-work/01.webp",
+      alt: "Professional roofing installation by Sexton Roofing",
     },
     {
-      title: "Vinyl Siding Installation",
-      location: "Amherst, MA",
-      category: "siding",
-      before: { src: "/images/gallery/siding-amherst-before.jpg", alt: "Home before siding installation in Amherst, MA" },
-      after: { src: "/images/gallery/siding-amherst-after.jpg", alt: "Home after siding installation in Amherst, MA" },
+      title: "Vinyl Siding Installations",
+      description: "Expert vinyl siding installation that transforms your home's curb appeal.",
+      src: "/images/our-work/02.webp",
+      alt: "Vinyl siding installation by Sexton Roofing",
     },
     {
-      title: "Window Replacement",
-      location: "Easthampton, MA",
-      category: "windows",
-      before: { src: "/images/gallery/windows-easthampton-before.jpg", alt: "Windows before replacement in Easthampton, MA" },
-      after: { src: "/images/gallery/windows-easthampton-after.jpg", alt: "Windows after replacement in Easthampton, MA" },
+      title: "Roofing Repairs",
+      description: "Fast, reliable roof repairs to keep your home safe and weather-tight.",
+      src: "/images/our-work/03.webp",
+      alt: "Professional roofing repair by Sexton Roofing",
     },
     {
-      title: "Commercial Roof Repair",
-      location: "Springfield, MA",
-      category: "roofing",
-      before: { src: "/images/gallery/commercial-springfield-before.jpg", alt: "Commercial roof before repair in Springfield, MA" },
-      after: { src: "/images/gallery/commercial-springfield-after.jpg", alt: "Commercial roof after repair in Springfield, MA" },
-    },
-    {
-      title: "Entry Door Installation",
-      location: "Greenfield, MA",
-      category: "doors",
-      before: { src: "/images/gallery/door-greenfield-before.jpg", alt: "Entry door before installation in Greenfield, MA" },
-      after: { src: "/images/gallery/door-greenfield-after.jpg", alt: "Entry door after installation in Greenfield, MA" },
-    },
-    {
-      title: "Full Exterior Renovation",
-      location: "Chicopee, MA",
-      category: "roofing",
-      before: { src: "/images/gallery/exterior-chicopee-before.jpg", alt: "Home before full exterior renovation in Chicopee, MA" },
-      after: { src: "/images/gallery/exterior-chicopee-after.jpg", alt: "Home after full exterior renovation in Chicopee, MA" },
+      title: "Gutters",
+      description: "Seamless gutter installation for superior drainage and home protection.",
+      src: "/images/our-work/04.webp",
+      alt: "Gutter installation by Sexton Roofing",
     },
   ],
 };
@@ -545,8 +520,8 @@ export const footer = {
     { label: "Windows", href: "#services" },
     { label: "Doors", href: "#services" },
     { label: "About Us", href: "#about" },
-    { label: "Gallery", href: "#gallery" },
     { label: "Reviews", href: "#testimonials" },
+    { label: "Our Work", href: "#gallery" },
     { label: "Contact", href: "#contact" },
   ],
   legal: {

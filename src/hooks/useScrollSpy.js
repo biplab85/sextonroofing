@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
  * Section IDs in PAGE order (top to bottom) that correspond to nav links.
  * Only sections that have a matching nav link are tracked.
  */
-const NAV_SECTIONS = ['hero', 'services', 'about', 'testimonials', 'gallery', 'contact'];
+const NAV_SECTIONS = ['hero', 'services', 'about', 'video', 'testimonials', 'gallery', 'faq', 'contact'];
 
 /**
  * Scroll-spy hook — returns the hash (e.g. "#services") of the section
