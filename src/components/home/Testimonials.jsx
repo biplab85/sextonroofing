@@ -31,7 +31,6 @@ export default function Testimonials() {
   const posRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState(null);
 
   const slides = [...testimonials.reviews, ...testimonials.reviews];
 
@@ -142,14 +141,11 @@ export default function Testimonials() {
           <div className="swiper-wrapper">
             {slides.map((review, idx) => {
               const clr = getAccentColor(idx % testimonials.reviews.length);
-              const hovered = hoveredCard === idx;
 
               return (
                 <div key={idx} className="swiper-slide reviews-slide">
                   <div
                     className="review-card"
-                    onMouseEnter={() => setHoveredCard(idx)}
-                    onMouseLeave={() => setHoveredCard(null)}
                     style={{ '--accent-rgb': clr.rgb }}
                   >
                     {/* Top area */}
@@ -160,15 +156,11 @@ export default function Testimonials() {
                           background: `linear-gradient(160deg, rgba(${clr.rgb},0.15) 0%, rgba(${clr.rgb},0.05) 40%, transparent 70%)`,
                         }}
                       />
-                      <div
-                        className="review-card__overlay"
-                        style={{ opacity: hovered ? 0.95 : 0.7 }}
-                      />
+                      <div className="review-card__overlay" />
                       <div
                         className="review-card__accent-line"
                         style={{
                           background: `linear-gradient(90deg,transparent 5%,rgba(${clr.rgb},.8) 50%,transparent 95%)`,
-                          opacity: hovered ? 1 : 0,
                         }}
                       />
 
@@ -199,37 +191,17 @@ export default function Testimonials() {
                       </div>
 
                       {/* Card image border */}
-                      <div
-                        className="review-card__border-top"
-                        style={{
-                          borderTop: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                          borderLeft: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                          borderRight: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                        }}
-                      />
+                      <div className="review-card__border-top" />
                     </div>
 
                     {/* Bottom info panel */}
-                    <div
-                      className="review-card__info"
-                      style={{
-                        borderLeft: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                        borderRight: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                        borderBottom: `1px solid ${hovered ? `rgba(${clr.rgb},0.35)` : 'rgba(255,255,255,0.05)'}`,
-                      }}
-                    >
-                      <h3
-                        className="review-card__name"
-                        style={{ color: hovered ? `rgba(${clr.rgb},1)` : 'rgba(255,255,255,.9)' }}
-                      >
-                        {review.author}
-                      </h3>
+                    <div className="review-card__info">
+                      <h3 className="review-card__name">{review.author}</h3>
                       <p className="review-card__location">{review.location}</p>
                       <div
                         className="review-card__underline"
                         style={{
                           background: `linear-gradient(90deg,rgba(${clr.rgb},.9),rgba(${clr.rgb},.15))`,
-                          width: hovered ? '50%' : '0%',
                         }}
                       />
                     </div>

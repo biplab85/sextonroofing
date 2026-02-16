@@ -1111,6 +1111,7 @@ $rv-star: #eab308;
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(10, 13, 20, 0.95) 0%, rgba(10, 13, 20, 0.6) 40%, rgba(10, 13, 20, 0.2) 70%, rgba(10, 13, 20, 0.1) 100%);
+    opacity: 0.7;
     transition: opacity 0.3s ease;
   }
 
@@ -1120,6 +1121,7 @@ $rv-star: #eab308;
     left: 0;
     right: 0;
     height: 2px;
+    opacity: 0;
     transition: opacity 0.5s ease;
     z-index: 5;
   }
@@ -1214,6 +1216,9 @@ $rv-star: #eab308;
     inset: 0;
     border-radius: $radius-xl $radius-xl 0 0;
     pointer-events: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     transition: border-color 0.4s ease;
   }
 
@@ -1222,6 +1227,9 @@ $rv-star: #eab308;
     padding: $space-5;
     background: $rv-info-bg;
     border-radius: 0 0 $radius-xl $radius-xl;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: border-color 0.4s ease;
   }
 
@@ -1229,6 +1237,7 @@ $rv-star: #eab308;
     font-family: $font-heading;
     font-weight: 500;
     font-size: $text-lg;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
@@ -1244,8 +1253,41 @@ $rv-star: #eab308;
   &__underline {
     margin-top: $space-3;
     height: 2px;
+    width: 0;
     border-radius: $radius-full;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
+}
+
+// ── Review Card — Hover & Active Slide Effects ──
+.review-card:hover,
+.swiper-slide-active .review-card {
+  .review-card__overlay {
+    opacity: 0.95;
+  }
+
+  .review-card__accent-line {
+    opacity: 1;
+  }
+
+  .review-card__border-top {
+    border-top-color: rgba(var(--accent-rgb), 0.35);
+    border-left-color: rgba(var(--accent-rgb), 0.35);
+    border-right-color: rgba(var(--accent-rgb), 0.35);
+  }
+
+  .review-card__info {
+    border-left-color: rgba(var(--accent-rgb), 0.35);
+    border-right-color: rgba(var(--accent-rgb), 0.35);
+    border-bottom-color: rgba(var(--accent-rgb), 0.35);
+  }
+
+  .review-card__name {
+    color: rgba(var(--accent-rgb), 1);
+  }
+
+  .review-card__underline {
+    width: 50%;
   }
 }
 
