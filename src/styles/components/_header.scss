@@ -45,6 +45,11 @@
       @include responsive(lg) {
         height: 52px;
       }
+
+      // Light logo hidden by default (dark mode)
+      &--light {
+        display: none;
+      }
     }
   }
 

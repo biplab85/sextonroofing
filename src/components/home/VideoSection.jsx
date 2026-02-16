@@ -119,7 +119,7 @@ export default function VideoSection() {
           <div className="vid-modal__wrap" onClick={(e) => e.stopPropagation()}>
             <video
               ref={videoRef}
-              src="/herovideo.mp4"
+              src="https://vid.cdn-website.com/315baaa1/videos/EZE1bhIT9KTglMVQV1CA_Sexton+Homepage+Video-v.mp4"
               autoPlay
               controls
               playsInline

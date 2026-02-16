@@ -6,7 +6,6 @@ import { navigation, business } from '@/data/content';
 import { useScrollHeader } from '@/hooks/useScrollHeader';
 import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy';
 import { useDrawer } from '@/context/DrawerContext';
-import { useTheme } from '@/context/ThemeContext';
 import { IconPhone, IconArrowRight } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -16,20 +15,23 @@ export default function Header() {
   const scrolled = useScrollHeader(60);
   const activeHash = useScrollSpy(80);
   const { openDrawer } = useDrawer();
-  const { theme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const logoSrc = theme === 'light' ? '/images/SextonRoofingLogo.svg' : navigation.logo.src;
 
   return (
     <>
       <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner">
-          {/* Logo */}
+          {/* Logo — CSS toggles visibility via [data-theme] */}
           <Link href="#hero" className="header__logo" onClick={scrollToSection}>
             <img
-              src={logoSrc}
+              src={navigation.logo.src}
               alt={navigation.logo.alt}
-              className="header__logo-img"
+              className="header__logo-img header__logo-img--dark"
+            />
+            <img
+              src="/images/SextonRoofingLogo.svg"
+              alt={navigation.logo.alt}
+              className="header__logo-img header__logo-img--light"
             />
           </Link>
 
