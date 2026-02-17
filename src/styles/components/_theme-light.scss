@@ -452,6 +452,42 @@
     filter: none;
   }
 
+  // Promo cards — light mode
+  .service-card--promo {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: $color-border;
+
+    &:hover {
+      background: rgba(var(--card-glow), 0.04);
+      border-color: rgba(var(--card-glow), 0.25);
+    }
+  }
+
+  .service-card__promo-title {
+    color: $color-text;
+  }
+
+  .service-card__promo-text {
+    color: $color-text-secondary;
+  }
+
+  .service-card__promo-number {
+    background: linear-gradient(135deg, #3A6B55 0%, #7E6891 50%, #D4AF37 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .service-card__promo-btn--outline {
+    border-color: rgba(var(--card-glow), 0.3);
+    color: $color-text;
+
+    &:hover {
+      border-color: rgba(var(--card-glow), 0.5);
+      background: rgba(var(--card-glow), 0.06);
+    }
+  }
+
   // ============================================================
   // Brand Showcase
   // ============================================================
@@ -522,11 +558,16 @@
     }
 
     .feature-card {
+      background: #1a2a22;
+      border-color: rgba(58, 107, 85, 0.2);
       box-shadow: $shadow-sm;
-      border-color: $color-border;
 
       &:hover {
         box-shadow: $shadow-md;
+      }
+
+      .feature-card__title {
+        color: rgba(255, 255, 255, 0.92);
       }
     }
   }

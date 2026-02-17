@@ -41,7 +41,7 @@ const stats = [
 ];
 
 /* ── Highlight words in headline ── */
-const highlightWords = ['Trusted', '40'];
+const highlightWords = ['Expert', 'Massachusetts'];
 
 export default function Hero() {
   const { openDrawer } = useDrawer();

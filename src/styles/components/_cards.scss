@@ -164,6 +164,111 @@
   }
 }
 
+// ── Promo cards (fill empty grid slots) ──
+.service-card--promo {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &:hover {
+    border-style: solid;
+    border-color: rgba(var(--card-glow), 0.4);
+    background: linear-gradient(160deg, rgba(var(--card-glow), 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  }
+}
+
+.service-card__promo-inner {
+  padding: $space-8 $space-6;
+}
+
+.service-card__promo-badge {
+  display: inline-block;
+  padding: $space-1 $space-4;
+  border-radius: $radius-full;
+  background: linear-gradient(135deg, rgba(58, 107, 85, 0.25), rgba(58, 107, 85, 0.1));
+  border: 1px solid rgba(58, 107, 85, 0.3);
+  color: #6fcfa0;
+  font-family: $font-heading;
+  font-size: $text-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: $space-4;
+}
+
+.service-card__promo-number {
+  font-family: $font-heading;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  background: linear-gradient(135deg, #7E6891 0%, #B89CD6 50%, #D4AF37 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: heroGradText 6s ease infinite;
+  margin-bottom: $space-2;
+}
+
+.service-card__promo-title {
+  font-size: $text-xl;
+  color: $color-white;
+  margin-bottom: $space-3;
+  font-family: $font-heading;
+  font-weight: 600;
+}
+
+.service-card__promo-text {
+  font-size: $text-sm;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin-bottom: $space-6;
+}
+
+.service-card__promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  border-radius: $radius-full;
+  background: linear-gradient(135deg, #3A6B55, #2D5A45);
+  color: $color-white;
+  font-family: $font-heading;
+  font-weight: 500;
+  font-size: $text-sm;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(58, 107, 85, 0.35);
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
+  }
+
+  &--outline {
+    background: transparent;
+    border: 1px solid rgba(126, 104, 145, 0.4);
+    color: rgba(255, 255, 255, 0.85);
+
+    &:hover {
+      border-color: rgba(126, 104, 145, 0.7);
+      background: rgba(126, 104, 145, 0.1);
+      box-shadow: 0 8px 24px rgba(126, 104, 145, 0.25);
+    }
+  }
+}
+
 // ── SVG icon inside card ──
 .svc-icon {
   position: relative;
@@ -308,50 +413,43 @@
 // Why Choose Us Cards
 // ============================================================
 .feature-card {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding: $space-8 $space-6;
   border-radius: $radius-lg;
   background: $color-white;
   border: 1px solid $color-border;
+  overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
-
-  @include responsive(md) {
-    text-align: left;
-  }
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-md;
+
+    .feature-card__image img {
+      transform: scale(1.05);
+    }
   }
 
-  &__icon {
-    width: 56px;
-    height: 56px;
-    border-radius: $radius-lg;
-    background: rgba($color-primary-light, 0.08);
-    @include flex-center;
-    margin: 0 auto $space-4;
+  &__image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-4;
 
-    @include responsive(md) {
-      margin: 0 0 $space-4 0;
-    }
-
-    svg {
-      width: 28px;
-      height: 28px;
-      color: $color-primary-light;
+    img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 120px;
+      transition: transform 0.5s ease;
     }
   }
 
   &__title {
     font-size: $text-lg;
-    margin-bottom: $space-2;
-  }
-
-  &__description {
-    color: $color-text-secondary;
-    font-size: $text-sm;
-    line-height: 1.6;
+    padding: $space-4 $space-6;
   }
 }
 

@@ -66,9 +66,9 @@ export const navigation = {
 // Hero Section
 // ----------------------------------------------------------
 export const hero = {
-  headline: "Trusted by Western MA Homeowners for Over 40 Years",
+  headline: "Expert Roofing and Siding services across Massachusetts",
   subheadline:
-    "Expert Roofing, Siding, Windows & Doors — One Contractor, Complete Exterior Solutions.",
+    "Trusted by Western MA Homeowners for Over 40 Years",
   primaryCta: {
     label: "Get Your Free Estimate",
     href: "#estimate-form",
@@ -145,37 +145,59 @@ export const trustBar = {
 export const services = {
   sectionTitle: "Our Services",
   sectionSubtitle:
-    "From roofing to siding, windows to doors — Sexton is your one-stop shop for complete exterior solutions.",
+    "We provide expert roofing service in Massachusetts, including repairs, full replacements, and new installations built for durability and curb appeal. We also offer custom siding, energy-efficient windows, and secure, stylish entry doors to keep your home protected and beautiful.",
   cards: [
     {
-      title: "Roofing",
+      title: "Roofing Installation",
       description:
-        "Residential and commercial roof repair, replacement, and new installations. Trusted craftsmanship backed by 40+ years of experience.",
+        "Professional roofing installation in Massachusetts built for durability and curb appeal.",
       image: { src: "/images/services/roofing.jpg", alt: "Professional roofing installation by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/01.jpg",
       href: "#contact",
       linkLabel: "Learn More",
     },
     {
-      title: "Siding",
+      title: "Roofing Repairs",
       description:
-        "Professional vinyl siding installation and repair across Western MA. Enhance your home's curb appeal and energy efficiency.",
+        "Reliable roofing repair service in Massachusetts for leaks, storm damage, and wear.",
       image: { src: "/images/services/siding.jpg", alt: "Vinyl siding installation by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/02.png",
       href: "#contact",
       linkLabel: "Learn More",
     },
     {
-      title: "Windows",
+      title: "Vinyl Siding Installation",
       description:
-        "Energy-efficient window replacements including double-hung, casement, and picture windows. Improve comfort, light, and value.",
+        "Custom vinyl siding installation in Massachusetts for protection and enhanced home value.",
       image: { src: "/images/services/windows.jpg", alt: "Window replacement by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/03.webp",
       href: "#contact",
       linkLabel: "Learn More",
     },
     {
-      title: "Doors",
+      title: "Gutter Installation",
       description:
-        "Custom entry door installations in fiberglass and steel. Boost security, insulation, and curb appeal with a single upgrade.",
+        "Seamless gutter installation in Massachusetts for superior drainage and foundation protection.",
       image: { src: "/images/services/doors.jpg", alt: "Entry door installation by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/04.png",
+      href: "#contact",
+      linkLabel: "Learn More",
+    },
+    {
+      title: "Window Replacement",
+      description:
+        "Energy-efficient window replacement in Massachusetts to improve comfort and lower bills.",
+      image: { src: "/images/services/windows.jpg", alt: "Window replacement by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/05.jpg",
+      href: "#contact",
+      linkLabel: "Learn More",
+    },
+    {
+      title: "Entry Door Installation",
+      description:
+        "Secure, stylish entry door installation in Massachusetts for safety and efficiency.",
+      image: { src: "/images/services/doors.jpg", alt: "Entry door installation by Sexton Roofing" },
+      cardImage: "/images/what-we-offer/06.avif",
       href: "#contact",
       linkLabel: "Learn More",
     },
@@ -186,33 +208,51 @@ export const services = {
 // Why Choose Us
 // ----------------------------------------------------------
 export const whyChooseUs = {
-  sectionTitle: "Why Choose Sexton?",
+  sectionTitle: "Why Choose Sexton Roofing & Siding?",
   sectionSubtitle:
     "Four decades of trusted service — here's what sets us apart.",
   items: [
     {
       icon: "award",
-      title: "40+ Years of Experience",
+      title: "Fully licenseD & insured",
       description:
         "Established in 1985, Sexton has served Western Massachusetts homeowners for over four decades. Our longevity speaks to the quality of our work and the trust we've earned.",
+      image: "/images/why-choose-us/01.webp",
     },
     {
       icon: "home",
-      title: "Family-Owned & Operated",
+      title: "SHINGLE SPECIALIST SINCE 1985",
       description:
         "Owned by Sasha and Tim Wilde, every project gets personal attention. We treat your home the way we'd treat our own.",
+      image: "/images/why-choose-us/02.webp",
     },
     {
       icon: "shield",
-      title: "BBB Accredited Since 2001",
+      title: "40+ YEARS EXPERIENCE",
       description:
         "Our Better Business Bureau accreditation reflects our commitment to honest business practices and customer satisfaction.",
+      image: "/images/why-choose-us/03.png",
     },
     {
       icon: "dollar-sign",
-      title: "Free, No-Obligation Estimates",
+      title: "Outstanding Guarantees & Warranties",
       description:
         "Get a detailed, transparent quote at no cost. No pressure, no hidden fees — just an honest assessment of your project.",
+      image: "/images/why-choose-us/04.webp",
+    },
+    {
+      icon: "dollar-sign",
+      title: "FAMILY AND LOCALLY OWNED",
+      description:
+        "Get a detailed, transparent quote at no cost. No pressure, no hidden fees — just an honest assessment of your project.",
+      image: "/images/why-choose-us/05.webp",
+    },
+    {
+      icon: "dollar-sign",
+      title: "WOMEN-OWNED",
+      description:
+        "Get a detailed, transparent quote at no cost. No pressure, no hidden fees — just an honest assessment of your project.",
+      image: "/images/why-choose-us/06.webp",
     },
   ],
 };
@@ -401,9 +441,9 @@ export const serviceArea = {
 // Highlighted Projects
 // ----------------------------------------------------------
 export const highlightedProjects = {
-  sectionTitle: "Highlighted Projects",
+  sectionTitle: "Recent Roofing & Siding Projects in Western Massachusetts",
   sectionSubtitle:
-    "Featured transformations from across Western Massachusetts.",
+    "From Northampton to Easthampton and beyond, here are a few recent projects completed by our team. See the workmanship, materials, and results.",
   projects: [
     {
       title: "Complete Roof Replacement",

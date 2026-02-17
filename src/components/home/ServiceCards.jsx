@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { services } from '@/data/content';
+import Image from 'next/image';
+import { services, business } from '@/data/content';
 import { IconArrowRight } from '@/components/ui/Icons';
 import SectionHeader from '@/components/ui/SectionHeader';
+import { useDrawer } from '@/context/DrawerContext';
 
 /* ── SVG icons per service ── */
 const serviceIcons = {
@@ -100,6 +102,7 @@ const constellationEdges = [
 ];
 
 export default function ServiceCards() {
+  const { openDrawer } = useDrawer();
   const sectionRef = useRef(null);
   const svgRef = useRef(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
@@ -294,11 +297,13 @@ export default function ServiceCards() {
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div className="service-card__icon-area" style={{ background: gradient.bg }}>
-                  <div className="svc-icon">
-                    {serviceIcons[card.title]}
-                  </div>
-                  <div className="service-card__icon-orb service-card__icon-orb--a" />
-                  <div className="service-card__icon-orb service-card__icon-orb--b" />
+                  <Image
+                    src={card.cardImage}
+                    alt={card.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
 
                 <div className="service-card__body">
@@ -332,6 +337,42 @@ export default function ServiceCards() {
               </div>
             );
           })}
+
+          {/* ── Promo: Free Estimate CTA ── */}
+          <div
+            className="service-card service-card--promo"
+            style={{ '--card-glow': '58,107,85', transitionDelay: '900ms' }}
+          >
+            <div className="service-card__promo-inner">
+              <div className="service-card__promo-badge">Free</div>
+              <h3 className="service-card__promo-title">Get Your Free Estimate</h3>
+              <p className="service-card__promo-text">
+                No pressure, no hidden fees — just an honest assessment of your project.
+              </p>
+              <button type="button" onClick={openDrawer} className="service-card__promo-btn">
+                Request Now
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          {/* ── Promo: Trust / Experience ── */}
+          <div
+            className="service-card service-card--promo service-card--promo-trust"
+            style={{ '--card-glow': '126,104,145', transitionDelay: '1000ms' }}
+          >
+            <div className="service-card__promo-inner">
+              <div className="service-card__promo-number">{new Date().getFullYear() - business.established}+</div>
+              <h3 className="service-card__promo-title">Years of Excellence</h3>
+              <p className="service-card__promo-text">
+                Family-owned since {business.established}. Trusted by thousands of Massachusetts homeowners.
+              </p>
+              <a href={`tel:${business.phone}`} className="service-card__promo-btn service-card__promo-btn--outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call {business.phone}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

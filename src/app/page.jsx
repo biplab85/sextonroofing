@@ -18,9 +18,9 @@ export default function HomePage() {
       <Hero />
       <TrustBar />
       <ServiceCards />
-      <BrandShowcase />
+      {/* <BrandShowcase /> */}
       <WhyChooseUs />
-      <VideoSection />
+      {/* <VideoSection /> */}
       <HighlightedProjects />
       <Testimonials />
       <HowItWorks />

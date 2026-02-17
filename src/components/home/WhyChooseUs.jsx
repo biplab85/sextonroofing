@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { whyChooseUs } from '@/data/content';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { Icon } from '@/components/ui/Icons';
 import { useScrollRevealGroup } from '@/hooks/useScrollReveal';
 
 export default function WhyChooseUs() {
@@ -31,11 +31,16 @@ export default function WhyChooseUs() {
         <div className="why-section__grid" ref={groupRef}>
           {whyChooseUs.items.map((item) => (
             <div key={item.title} className="feature-card reveal-stagger">
-              <div className="feature-card__icon">
-                <Icon name={item.icon} size={28} />
+              <div className="feature-card__image">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  width={400}
+                  height={300}
+                  style={{ width: 'auto', height: 'auto' }}
+                />
               </div>
               <h3 className="feature-card__title">{item.title}</h3>
-              <p className="feature-card__description">{item.description}</p>
             </div>
           ))}
         </div>
